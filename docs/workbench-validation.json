@@ -1,0 +1,214 @@
+{
+  "version": "0.2.0",
+  "checked_at_utc": "2026-10-25T04:18:50.846177+00:00",
+  "baseline_commit": "5c11793c2d41332d7c2256b9d699a6fa30c10e22",
+  "scope": "44 source-directory entries; 3 explicit executable routes; no automatic provider fallback",
+  "offline_and_loopback_tests": {
+    "passed": true,
+    "count": 42,
+    "python": "3.12",
+    "command": "python -m unittest discover -s tests -v",
+    "upstream_requests_in_tests": false
+  },
+  "live_point_samples": [
+    {
+      "name": "power-daily",
+      "request": {
+        "source": "nasa-power",
+        "frequency": "daily",
+        "start": "2001-01-01",
+        "end": "2001-01-03",
+        "point": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "variables": [
+          "T2M",
+          "RH2M",
+          "PRECTOTCORR"
+        ],
+        "max_output_mib": 16
+      },
+      "passed": true,
+      "record_count": 2,
+      "missing_counts": {
+        "T2M": 0,
+        "RH2M": 0,
+        "PRECTOTCORR": 0
+      },
+      "units": {
+        "T2M": "C",
+        "RH2M": "%",
+        "PRECTOTCORR": "mm/day"
+      },
+      "files": [
+        {
+          "name": "raw.json",
+          "bytes": 721,
+          "sha256": "ebfbf7acee5bfafa203fc391a9173e0eedd48bca77bd92085c3ec39a5383f5d2"
+        },
+        {
+          "name": "data.csv",
+          "bytes": 81,
+          "sha256": "d2144762843f2c435542128b3ef479ee61492f312178db5501f780c49bddcd4c"
+        }
+      ],
+      "checks": [
+        "SHA256",
+        "raw response reparse",
+        "exact CSV correspondence",
+        "UTC sequence",
+        "variables",
+        "units",
+        "missing counts",
+        "provenance",
+        "output budget"
+      ]
+    },
+    {
+      "name": "meteo-hourly",
+      "request": {
+        "source": "open-meteo",
+        "frequency": "hourly",
+        "start": "2001-01-01T00:00:00Z",
+        "end": "2001-01-02T00:00:00Z",
+        "point": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "variables": [
+          "temperature_2m",
+          "precipitation",
+          "wind_speed_10m"
+        ],
+        "max_output_mib": 16
+      },
+      "passed": true,
+      "record_count": 24,
+      "missing_counts": {
+        "temperature_2m": 0,
+        "precipitation": 0,
+        "wind_speed_10m": 0
+      },
+      "units": {
+        "temperature_2m": "°C",
+        "precipitation": "mm",
+        "wind_speed_10m": "m/s"
+      },
+      "files": [
+        {
+          "name": "raw.json",
+          "bytes": 1150,
+          "sha256": "6cd644e53e8db5651cfceda2c6b7c44c369bd7cd0624784cbc1248d4777e5243"
+        },
+        {
+          "name": "data.csv",
+          "bytes": 913,
+          "sha256": "e6229e121e9e42e9deea11e29f9ccac4827c02010729df90bc307c7a3616b396"
+        }
+      ],
+      "checks": [
+        "SHA256",
+        "raw response reparse",
+        "exact CSV correspondence",
+        "UTC sequence",
+        "variables",
+        "units",
+        "missing counts",
+        "provenance",
+        "output budget"
+      ]
+    },
+    {
+      "name": "power-hourly",
+      "request": {
+        "source": "nasa-power",
+        "frequency": "hourly",
+        "start": "2001-01-01T02:00:00Z",
+        "end": "2001-01-01T04:00:00Z",
+        "point": {
+          "latitude": 0,
+          "longitude": 0
+        },
+        "variables": [
+          "T2M",
+          "RH2M"
+        ],
+        "max_output_mib": 16
+      },
+      "passed": true,
+      "record_count": 2,
+      "missing_counts": {
+        "T2M": 0,
+        "RH2M": 0
+      },
+      "units": {
+        "T2M": "C",
+        "RH2M": "%"
+      },
+      "files": [
+        {
+          "name": "raw.json",
+          "bytes": 1448,
+          "sha256": "f314713e6e224f5db7c4fec63c2b5994b0ea225a6931fb29f1e9030848e7c6ea"
+        },
+        {
+          "name": "data.csv",
+          "bytes": 80,
+          "sha256": "eaec0320218d1d4f93762ee46c2b952840109fe27625a05ddb47f36bd0ced1ff"
+        }
+      ],
+      "checks": [
+        "SHA256",
+        "raw response reparse",
+        "exact CSV correspondence",
+        "UTC sequence",
+        "variables",
+        "units",
+        "missing counts",
+        "provenance",
+        "output budget"
+      ]
+    }
+  ],
+  "era5_gee_live_retested": false,
+  "era5_gee_validation": "Synthetic transport and original18workflow tests; history is not current live acceptance",
+  "browser": {
+    "browser": "Microsoft Edge through Playwright CLI",
+    "passed": true,
+    "era5_import_preserved_batch_hours": 1,
+    "power_daily_plan_rows": 2,
+    "power_daily_ui_fetch_passed": true,
+    "raw_response_and_csv_download_available": true,
+    "reverify_passed": true,
+    "history_controls_stable_during_polling": true,
+    "nasa_catalogue_search_matches": 10,
+    "mobile_viewport_width": 390,
+    "mobile_horizontal_overflow": false,
+    "screenshot": "images/workbench.png"
+  },
+  "wheel": {
+    "built": true,
+    "isolated_install_passed": true,
+    "tested_outside_repository": true,
+    "catalogue_count": 44,
+    "installed_html_served_over_loopback": true,
+    "name": "climate_data_access-0.2.0-py3-none-any.whl",
+    "sha256": "92a1966951073e4e8856afa95ebb9dcfc9fc91ff4f2f3e895c46279305a9d5b7"
+  },
+  "reviews": {
+    "spec_compliance": "passed after durable running-job ledger and explicit ERA5 missing-value policy",
+    "code_quality": "approved after handling ledger write failures and preserving imported batch_hours"
+  },
+  "limitations": [
+    "Live samples prove only their specified location, dates and variables",
+    "ERA5 GEE new unified client was not live-retested",
+    "Point missing values are blank and counted; ERA5 missing cells reject the batch",
+    "No EODAG/earthaccess/earthkit-data/intake-esm adapter has been installed or executed",
+    "Verification checks structure, provenance and consistency, not independent meteorological accuracy",
+    "Upstream account, qualification, rate and data-use conditions continue to apply"
+  ],
+  "private_data_uploaded": false,
+  "research_database_modified": false,
+  "scheduler_enabled": false
+}

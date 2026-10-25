@@ -43,7 +43,8 @@
     "historical_sample_only": "仅有历史 ARCO 小样本实验，非生产适配器。",
     "adapter_not_implemented": "本项目未实现可执行适配器。",
     "web_historical_only": "仅有历史 CDS ERA5 网页下载实验。",
-    "api_not_implemented": "尚未实现 CDS API 适配器。"
+    "api_not_implemented": "尚未实现 CDS API 适配器。",
+    "implemented_live_sample_tested": "v0.2已实现适配器，并通过限定时间/地点/变量的真实匿名端到端小样本；不代表全产品或长期可用。"
   },
   "status_by_id": {
     "era5_hourly": [
@@ -57,7 +58,7 @@
       "catalog_only"
     ],
     "open_meteo": [
-      "catalog_only"
+      "implemented_live_sample_tested"
     ],
     "meteostat": [
       "catalog_only"
@@ -90,7 +91,7 @@
       "catalog_only"
     ],
     "nasa_power": [
-      "catalog_only"
+      "implemented_live_sample_tested"
     ],
     "merra2": [
       "catalog_only"
@@ -1844,5 +1845,56 @@
         "sample_check_kinds": []
       }
     }
-  ]
+  ],
+  "current_execution": {
+    "version": "0.2.0",
+    "checked_date": "2026-10-25",
+    "preferred_era5_route": "era5-gee",
+    "default_route": "era5-gee",
+    "automatic_source_fallback": false,
+    "routes": {
+      "era5-gee": {
+        "status": "implemented_offline_tested",
+        "catalog_ids": [
+          "earth_engine",
+          "era5_hourly"
+        ],
+        "spatial_kind": "native_grid_area",
+        "frequency": [
+          "hourly"
+        ],
+        "live_retested_this_version": false
+      },
+      "nasa-power": {
+        "status": "implemented_live_sample_tested",
+        "catalog_ids": [
+          "nasa_power"
+        ],
+        "spatial_kind": "point",
+        "frequency": [
+          "daily",
+          "hourly"
+        ],
+        "live_sample_record_counts": [
+          2,
+          2
+        ]
+      },
+      "open-meteo": {
+        "status": "implemented_live_sample_tested",
+        "catalog_ids": [
+          "open_meteo"
+        ],
+        "spatial_kind": "point",
+        "model": "era5",
+        "frequency": [
+          "hourly"
+        ],
+        "live_sample_record_counts": [
+          24
+        ]
+      }
+    },
+    "note": "public_access字段保留此前目录核对批次；本节记录当前适配器，不扩大其他渠道的验证范围。"
+  }
 }

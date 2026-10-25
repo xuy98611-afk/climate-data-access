@@ -1,88 +1,89 @@
-# climate-data-access
+# Climate Data Workbench · climate-data-access
 
-A directory of 44 climate-data products, distribution routes and tools, plus a Python client for regional ERA5 hourly retrieval through Google Earth Engine. Requests use UTC hours and 0.25-degree grid centers; outputs contain compressed NetCDF batches and a provenance/checksum manifest.
+A local personal research workbench with a Chinese interface, a searchable **44-entry source directory**, reusable JSON requests, explicit retrieval and verifiable outputs. Version **0.2** implements **three retrieval routes**, not 44 connectors.
 
-This is an early public-source release candidate. The packaged client is tested with synthetic offline responses; it has not been live-retested. No meteorological data, credentials, or private research database are included. See [validation status](docs/status.md).
+[中文主文档](README.md) · [Access guide](docs/public-access.md) · [Validation status](docs/status.md) · [Architecture](docs/architecture.md) · [Extending](docs/extending.md) · [Ecosystem](docs/ecosystem.md)
 
-[中文使用说明](README.md) · [Methods](docs/methods.md) · [44-source directory](catalog/sources.json)
+## Start the workbench
 
-See the [Chinese public-access guide](docs/public-access.md) for per-source steps, account requirements, bounded access checks, and restrictions. Directory listings are separate from executable adapters.
+Python 3.11+ is required. Windows users may run 启动工作台.cmd, which installs the project on first use. Alternatively, create and activate a virtual environment from the repository directory.
 
-## Install and plan offline
+Windows PowerShell:
 
-Use Python 3.11 or later in a virtual environment:
-
-```sh
+~~~powershell
 python -m venv .venv
-# Activate .venv using the command appropriate to your shell.
+.\.venv\Scripts\Activate.ps1
 python -m pip install -e .
-climate-access plan examples/two_hours.json
-```
+climate-access serve --open
+~~~
 
-Planning validates the request and reports dimensions, batches, and estimated numerical output size. It does not authenticate or make cloud requests. Importing `climate_access` also makes no cloud requests.
+macOS / Linux:
 
-## Explicit cloud retrieval
+~~~sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+climate-access serve --open
+~~~
 
-Install the Earth Engine extra, then configure your own account and eligible Cloud project using Google's [authentication guide](https://developers.google.com/earth-engine/guides/auth). If you need to authenticate, run `earthengine authenticate` yourself. The package uses `ee.Initialize(project=...)` with your existing SDK credentials and does not launch authentication.
+The page opens at http://127.0.0.1:8765. Its three tabs cover retrieval, the source directory and run history. Choose a source, inspect an offline plan, explicitly start retrieval, then inspect and verify the result. Save/import JSON requests or reuse a historical request. ERA5 is the default priority route; choose NASA POWER to try a route without an account.
 
-```sh
+Results default to data/workbench. Stop with Ctrl+C. Set a location and port with:
+
+~~~sh
+climate-access serve --open --output data/workbench --port 8765
+~~~
+
+The server binds only to loopback. It does not write to a research database, schedule tasks or upload private research files. The page offers point CSV/raw JSON/manifest downloads; ERA5 NetCDF files are available in the local run directory, with the manifest downloadable in the page.
+
+## Implemented routes
+
+| Source | Scope | Authentication and output |
+| --- | --- | --- |
+| era5-gee | Hourly regional ERA5; native 0.25° pixel centers, nine supported variables, at most 744 hours | Your eligible GEE project and local SDK authentication; compressed NetCDF and manifest |
+| nasa-power | Daily/hourly point; at most 31 days and eight variables per request | Public API, no account; CSV, raw JSON and manifest |
+| open-meteo | Hourly point, explicitly fixed to ERA5; at most 31 days and eight variables | Public noncommercial API, no account; CSV, raw JSON and manifest |
+
+Sources are explicit. Failed retrievals do not fall back to another source. Point data and regional ERA5 retain their own variable, unit and processing conventions. POWER is a source-derived gridded product, not a station observation.
+
+## CLI workflow
+
+~~~sh
+climate-access catalog --search NASA
+climate-access catalog --search NASA --tier no_account
+climate-access request-plan examples/power_daily.json
+climate-access request-fetch examples/power_daily.json --output data/power-example
+climate-access request-verify data/power-example
+~~~
+
+Catalog search and planning are offline. Unified retrieval requires a new output directory and never overwrites an existing one. All intervals are [start, end): the daily example covers January 1–2, 2001. Daily dates use YYYY-MM-DD; hourly timestamps use whole-hour UTC YYYY-MM-DDTHH:00:00Z. Point requests cannot include future times. See [POWER](examples/power_daily.json), [Open-Meteo](examples/open_meteo_hourly.json), and [ERA5](examples/era5_unified.json) examples.
+
+For GEE, follow the [official authentication guide](https://developers.google.com/earth-engine/guides/auth), using your own account, eligible project and local credentials:
+
+~~~sh
 python -m pip install -e ".[gee]"
-climate-access fetch examples/two_hours.json --project YOUR_PROJECT_ID --output data/two-hours
-climate-access verify data/two-hours
-climate-access bundle data/two-hours --output exports/two-hours.zip
-```
+earthengine authenticate
+climate-access request-plan examples/era5_unified.json
+climate-access request-fetch examples/era5_unified.json --project YOUR_PROJECT_ID --output data/era5-example
+climate-access request-verify data/era5-example
+~~~
 
-`fetch` makes external requests and consumes the permissions and quotas of the project you supply. Check current service eligibility and dataset terms before using it. A successful offline plan does not confirm cloud access, data availability, or a successful download.
+Credentials are not stored by this project, and the project ID is not written to result manifests. Legacy ERA5 plan / fetch / verify / bundle commands remain available. Legacy fetch can resume an identical request in the same directory after checking existing batches; unified request-fetch always requires a new directory. See [ERA5 methods](docs/methods.md).
 
-Keep the same configuration and output directory to resume: recorded batches are validated before reuse. Changed configurations and corrupt existing outputs are rejected. Use a new directory for a different request. Bundling verifies the output and refuses to overwrite an existing archive.
+## Interpretation and limits
 
-An abrupt termination may leave `.run.lock`. Confirm that no other process is writing before inspecting/removing that lock. If a `.nc` file was published but its manifest entry was not committed, resume deliberately refuses to overwrite it. Preserve the directory for inspection and use a new output directory; do not delete verified results to force a retry. Budget settings are part of request identity, so changing them also requires a new directory.
+- Keep source units, UTC and numeric values. There is no automatic unit conversion, gap filling or cross-source merging. ERA5 retains its strict finite-value checks and rejects missing responses.
+- Point APIs request full upstream days. Raw JSON preserves that response; CSV contains only the selected interval. null and POWER -999 become empty CSV fields with per-variable missing counts.
+- Open-Meteo fixes models=era5, nearest-cell selection, elevation=nan, UTC and wind speed in m/s. POWER retains source provenance and response coordinates; raw JSON retains the full header and variable definitions. Actual per-variable native grid centers remain unknown.
+- Point HTTP uses fixed HTTPS endpoints, a 60-second timeout and a 64 MiB maximum response size, also bounded by the configured total output budget. It has no automatic retries or fallback. Failed jobs are not complete. ERA5 retains its existing batching and limited retry rules.
+- Verification checks hashes, sequence, variables, units and provenance. Point verification reparses raw JSON and compares the exact CSV. These are consistency checks, not independent meteorological accuracy validation.
 
-## Request format
+## Validation and development
 
-```json
-{
-  "start": "2004-01-01T00:00:00Z",
-  "end": "2004-01-01T02:00:00Z",
-  "area": [30, 75, 29.5, 75.5],
-  "variables": ["t2m", "d2m", "sp"],
-  "batch_hours": 6,
-  "max_output_mib": 128
-}
-```
-
-- `start` is inclusive and `end` exclusive. Both must be whole UTC hours ending in `Z`. A request contains at most 744 consecutive hours.
-- Requested timestamps must fit the NetCDF nanosecond encoding range (through `2262-04-11T23:00:00Z`); this encoding bound is not a claim of future ERA5 availability.
-- `area` is an array of inclusive pixel-center bounds on the 0.25-degree grid, ordered `[north, west, south, east]`. Longitude crossing the antimeridian is unsupported.
-- Variables: `u10`, `v10`, `d2m`, `t2m`, `sp`, `tp`, `ssrdc`, `ssrd`, `tcc`.
-- `batch_hours` is at most 24; each batch is limited to 32 MiB estimated uncompressed float64 band values.
-- `max_output_mib` is a runtime budget for actual output artifacts plus the manifest. It is not a process-memory, global cache, or service-quota limit.
-
-See [methods and units](docs/methods.md) before interpreting precipitation or radiation. Values retain source semantics; no unit conversion, clipping, gap filling, or local-time aggregation is applied.
-
-## Scope and provenance
-
-The implemented route is [`ECMWF/ERA5/HOURLY`](https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_HOURLY) through the official Earth Engine SDK. The directory lists 44 public products, distribution channels, and tools. Each entry has a separate status; listing a service does not create a connector. CDS API and ARCO adapters are not implemented, and the package never switches channels automatically.
-
-The predecessor regional method was used for 2003–2010: 96 months, 70,128 UTC hours, nine variables, and a 37 × 61 grid. Those raw files were subsequently deleted and are absent from this repository. This is historical methodological context, not a reproducibility claim for the new client. Cross-channel values are not guaranteed equal.
-
-## Development
-
-```sh
-python -m pip install -e ".[gee,query]"
+~~~sh
 python -m unittest discover -s tests
-```
+~~~
 
-Tests use synthetic, non-meteorological arrays and temporary directories; no live credentials are required. The optional query example uses a separate local Parquet file and DuckDB. It does not integrate with an existing research database.
+Offline tests use synthetic responses. Small live POWER daily/hourly and Open-Meteo ERA5 requests were checked; the new GEE client remains offline-tested in this batch. See [status](docs/status.md) and [v0.2 validation evidence](docs/workbench-validation.json). Historical 2003–2010 ERA5 files were deleted and are not included or claimed as reproduced by this version.
 
-```sh
-python examples/query_point.py data/two-hours --output exports/north-west-point.parquet
-```
-
-This example selects the north-west grid point; it does not calculate an area mean.
-
-Contributions should include focused offline tests and explain any change to source, units, timestamp semantics, or output format. Do not commit downloaded data or credential files.
-
-## License and attribution
-
-Project code is [MIT licensed](LICENSE). ERA5 and other upstream data retain their own terms and attribution requirements; the code license grants no additional data rights. See [third-party notices](THIRD_PARTY.md) and [security guidance](SECURITY.md).
+EODAG, earthaccess, earthkit-data and intake-esm are future reuse candidates, not installed integrations. See [extension contracts](docs/extending.md) and [ecosystem notes](docs/ecosystem.md). Code is [MIT licensed](LICENSE); upstream data/API terms, eligibility, quotas and attribution apply separately. See [third-party notices](THIRD_PARTY.md) and [security](SECURITY.md).

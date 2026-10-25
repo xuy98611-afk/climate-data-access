@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "climate-data-access"
-version = "0.1.0"
-description = "区域 ERA5 逐小时数据获取、来源记录与文件核验接口"
+version = "0.2.0"
+description = "个人气候数据工作台：44项渠道目录、ERA5和点位气象获取、来源记录与核验"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -20,3 +20,6 @@ climate-access = "climate_access.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+climate_access = ["resources/*.json", "web/*.html"]

@@ -1,0 +1,9 @@
+{
+  "source": "open-meteo",
+  "frequency": "hourly",
+  "start": "2001-01-01T00:00:00Z",
+  "end": "2001-01-02T00:00:00Z",
+  "point": {"latitude": 0, "longitude": 0},
+  "variables": ["temperature_2m", "precipitation", "wind_speed_10m"],
+  "max_output_mib": 16
+}

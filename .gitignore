@@ -36,3 +36,7 @@ credentials.json
 *.pem
 *.key
 local.settings.json
+
+# Local browser verification artifacts
+.playwright-cli/
+output/playwright/

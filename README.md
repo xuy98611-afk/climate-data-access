@@ -1,84 +1,107 @@
-# 气候数据收集接口 · climate-data-access
+# 气候数据工作台 · climate-data-access
 
-这是一个面向个人研究的气候数据入口目录与 ERA5 按需获取工具。目录覆盖 **44 项产品、分发渠道及工具、9 类用途，其中 NASA 相关 10 项**，包含 NASA POWER、MERRA-2、GPM、SMAP、NOAA、CHIRPS、TerraClimate、未来情景等。
+![中文本地工作台](docs/images/workbench.png)
 
-**普通用户先看：[44项入口的中文获取指南](docs/public-access.md)**。每项都列出官网、操作步骤、账号要求、核验范围和访问限制；可直接获取、免费注册、需要申请及尚未确认的项目分开标注。
+面向个人研究的本地气候数据工作台。**v0.2** 把中文页面、44 项渠道目录、可保存的请求、显式获取与结果核验放进同一个入口。目前可执行 **3 条路线**：区域 ERA5、NASA POWER 点位、Open-Meteo 固定 ERA5 点位；44 项目录不代表 44 个连接器。
 
-当前可执行的 Python 客户端用于区域 ERA5 逐小时获取，使用 Google Earth Engine 官方 SDK，输出压缩 NetCDF 批次及来源、请求和文件校验清单。目录中的其余项目按指南从上游获取。
+[English](README.en.md) · [44 项获取指南](docs/public-access.md) · [验证状态](docs/status.md) · [架构](docs/architecture.md) · [扩展约定](docs/extending.md) · [成熟工具与复用方向](docs/ecosystem.md)
 
-当前为 0.1.0 初期版本。GEE新封装客户端仅通过合成数组离线测试；其他入口的有限在线验证范围见获取指南。项目不包含气象原始数据、账号凭据或私人研究数据库。[验证状态](docs/status.md)明确区分历史方法测试与新客户端验证。
+## 启动中文工作台
 
-[普通用户获取指南](docs/public-access.md) · [English](README.en.md) · [方法与变量](docs/methods.md) · [验证状态](docs/status.md) · [44 项气候数据目录](catalog/sources.json)
+需要 Python 3.11 或更高版本。Windows 可双击仓库内的 **启动工作台.cmd**，首次按提示安装项目并启动；也可在仓库目录手动安装。
 
-## 安装与离线规划
+Windows PowerShell：
 
-需要 Python 3.11 或更高版本。建议创建并按所在 shell 的方法激活虚拟环境：
-
-```sh
+~~~powershell
 python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -e .
-climate-access plan examples/two_hours.json
-```
+climate-access serve --open
+~~~
 
-`plan` 检查配置并计算格点、小时数、批次数及未压缩数值输出大小估算。规划和导入包均不会自动认证或请求云端。
+macOS / Linux：
 
-## 按需下载、核验与打包
+~~~sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+climate-access serve --open
+~~~
 
-先自行按官方[认证说明](https://developers.google.com/earth-engine/guides/auth)配置自己的账号和有权限使用的 Cloud 项目。需要登录时，由你自行运行 `earthengine authenticate`。本工具通过 `ee.Initialize(project=...)` 使用现有 SDK 凭据，不自动弹出认证流程。
+浏览器打开 http://127.0.0.1:8765。页面有“获取数据”“渠道目录”“获取记录”三个入口：选择来源与范围 → 查看获取计划 → 明确开始获取 → 查看结果并重新核验。可保存、导入请求 JSON，复用历史请求。默认优先选择 ERA5；首次试用无需账号路线时，可切换到 NASA POWER。
 
-```sh
+结果默认保存在本机 data/workbench，按 Ctrl+C 停止服务。自定义目录或端口：
+
+~~~sh
+climate-access serve --open --output data/workbench --port 8765
+~~~
+
+服务只监听本机地址。不会写入研究数据库、启用定时任务或上传私人研究文件。点位结果可在页面下载 CSV、原始 JSON 响应与来源清单；ERA5 保存压缩 NetCDF 批次，页面提供清单，数据文件从本地结果目录使用。
+
+## 可执行路线
+
+| 路线 | 获取范围 | 账号与输出 |
+| --- | --- | --- |
+| era5-gee（默认优先） | 区域逐小时，原生 0.25° 格点中心；9 个已支持变量，最多 744 小时 | 自己有资格使用的 GEE 项目和本机 SDK 认证；NetCDF + manifest |
+| nasa-power | 单点逐日或逐小时；每次最多 31 天、8 个变量 | 公开 API，无需账号；CSV + raw.json + manifest |
+| open-meteo | 单点逐小时，固定 models=era5；每次最多 31 天、8 个变量 | 公开非商业 API，无需账号；CSV + raw.json + manifest |
+
+请求明确选择来源；失败不会换源。POWER 是来源派生的格点产品，不是气象站实测；不同路线的变量、单位、空间及加工方法各自保留，不自动换算或合并。
+
+## 命令行：检索、计划、获取、核验
+
+~~~sh
+climate-access catalog --search NASA
+climate-access catalog --search NASA --tier no_account
+climate-access request-plan examples/power_daily.json
+climate-access request-fetch examples/power_daily.json --output data/power-example
+climate-access request-verify data/power-example
+~~~
+
+catalog 和 request-plan 完全离线。request-fetch 才访问上游，并要求新输出目录；已有目录不会覆盖。示例请求：
+
+~~~json
+{
+  "source": "nasa-power",
+  "frequency": "daily",
+  "start": "2001-01-01",
+  "end": "2001-01-03",
+  "point": {"latitude": 0, "longitude": 0},
+  "variables": ["T2M", "RH2M", "PRECTOTCORR"],
+  "max_output_mib": 16
+}
+~~~
+
+结束时间不包含，所以示例请求返回 1 月 1、2 日。逐日日期使用 YYYY-MM-DD；逐小时使用整点 UTC YYYY-MM-DDTHH:00:00Z。点位请求不能包含未来时间，历史覆盖与变量可用性仍须由上游实际响应确认。另见 [Open-Meteo 示例](examples/open_meteo_hourly.json)和[统一 ERA5 示例](examples/era5_unified.json)。
+
+### ERA5 认证与原有命令
+
+按 [GEE 官方流程](https://developers.google.com/earth-engine/guides/auth)准备自己的账号、适用资格和已授权项目，并在本机完成 SDK 认证；工具不代为登录、不保存凭据，项目 ID 不写入结果清单。
+
+~~~sh
 python -m pip install -e ".[gee]"
-climate-access fetch examples/two_hours.json --project YOUR_PROJECT_ID --output data/two-hours
-climate-access verify data/two-hours
-climate-access bundle data/two-hours --output exports/two-hours.zip
-```
+earthengine authenticate
+climate-access request-plan examples/era5_unified.json
+climate-access request-fetch examples/era5_unified.json --project YOUR_PROJECT_ID --output data/era5-example
+climate-access request-verify data/era5-example
+~~~
 
-只有 `fetch` 会请求外部服务，并使用所指定项目的权限与配额。使用前核对当前服务资格及数据条款；离线规划通过不表示账号、数据可用性或下载已验证。
+原有 plan / fetch / verify / bundle 继续可用。原有 ERA5 fetch 可在相同请求、相同输出目录下核验并续跑；统一 request-fetch 始终要求新目录。续跑、批次与打包约定见 [ERA5 方法说明](docs/methods.md)。
 
-使用相同配置和输出目录可以继续未完成任务；已有批次先核验再复用。配置变化或已有输出损坏会被拒绝。不同请求使用新目录。ZIP 打包前会核验，且不会覆盖已有归档。
+## 结果口径与核验边界
 
-异常终止可能留下 `.run.lock`。确认没有其他进程正在写入后，再检查和处理该锁文件。若 NetCDF 已发布但清单尚未提交，续跑会拒绝覆盖这个未登记文件；保留该目录供检查，改用新目录，不要通过删除已核验结果强行重试。容量限额也属于请求身份，修改限额需要新目录。
+- 所有区间为 [start, end)，保留 UTC、源单位和原数值。ERA5 不做插值、补缺、去累计或单位换算；现有严格有限值检查会拒绝缺失响应。
+- 点位接口按上游完整日请求，原始 JSON 保留完整响应，CSV 只输出所选时段。null 与 POWER 的 -999 缺失值写为空白并按变量计数，不插补。
+- Open-Meteo 固定最近格点、elevation=nan（禁用高程订正）、UTC、风速 m/s。POWER 清单保留上游来源与返回位置；完整头部和变量定义保留在原始响应中。返回点几何不能证明各变量的实际原生格点中心，后者标记为未知。
+- 点位 HTTP 使用固定 HTTPS 端点、60 秒超时和最多 64 MiB 响应上限，另受请求总体输出预算限制；没有自动重试或换源。失败任务不会标记完成。ERA5 保留原有分批与有限重试规则。
+- 核验检查 SHA-256、时间、变量、单位、来源与文件对应关系；点位核验会重新解析原始响应并精确对照 CSV。通过核验表示结果一致、可追溯，不能代替独立气象精度检验。
 
-## 配置与口径
+## 验证、开发与授权
 
-示例配置见 `examples/two_hours.json`，完整约定见[方法说明](docs/methods.md)。
-
-| 字段 | 含义 |
-| --- | --- |
-| `start`、`end` | 整点 UTC，必须以 `Z` 结尾；开始包含、结束不包含；单次最多 744 个连续小时 |
-| `area` | 数组 `[north, west, south, east]`，表示包含的 0.25° 格点中心；不支持跨日期变更线 |
-| `variables` | `u10 v10 d2m t2m sp tp ssrdc ssrd tcc` 中的变量子集 |
-| `batch_hours` | 每批小时数；示例为 6，上限 24；每批按 float64 估算的未压缩数值量不超过 32 MiB |
-| `max_output_mib` | 实际输出文件及清单的运行时容量上限；示例为 128 MiB，不是进程内存、全局缓存或服务配额上限 |
-
-保留来源单位与时间含义，不自动转摄氏度、毫米或 W/m²，不做物理裁剪、插值补缺或当地日聚合。降水及辐射的累计区间必须结合上游文档解释。不同渠道不保证逐值一致，也不会自动替换渠道。
-
-所有请求时刻必须能用 NetCDF 纳秒时间编码表示，最晚为 `2262-04-11T23:00:00Z`；这只是编码边界，不表示 ERA5 已有未来数据。
-
-## 44 项目录与历史验证
-
-[公开目录](catalog/sources.json)保存产品名称、指标、覆盖、频率、性质、公开入口及普通用户获取步骤；状态单独列在 `status_by_id`。目录包含来源、分发渠道及工具，并不表示实现了 44 个连接器。
-
-- Earth Engine：当前仅实现 `ECMWF/ERA5/HOURLY`，新客户端为离线测试状态。
-- ARCO：只有历史小样本实验，未实现生产适配器。
-- CDS：历史网页下载样本通过，不代表 CDS API 已实现或验证。
-- 其余项：目录登记，不声称账号权限或下载已打通。
-
-前身方法曾完成 2003—2010 年的区域获取：96 个月、70,128 个 UTC 小时、9 个变量、37 × 61 格点。对应原始文件后来已删除，本项目不包含这些文件；历史结果不能当作新客户端已复现的证据。
-
-## 开发与授权
-
-```sh
-python -m pip install -e ".[gee,query]"
+~~~sh
 python -m unittest discover -s tests
-```
+~~~
 
-测试使用临时目录中的合成数组，不是气象观测或再分析数据。可选 Parquet/DuckDB 示例只查询独立本地文件，不连接私人数据库。
+离线测试使用合成响应。NASA POWER 日/小时与 Open-Meteo ERA5 小样本已完成真实在线核对；新版 GEE 客户端本轮只有离线验证。范围与证据见[验证状态](docs/status.md)及 [v0.2 核验记录](docs/workbench-validation.json)。历史 2003—2010 年 ERA5 原始文件已删除，本仓库不包含这些数据，也不宣称新版已复现历史任务。
 
-```sh
-python examples/query_point.py data/two-hours --output exports/north-west-point.parquet
-```
-
-该示例选择西北角的一个格点，不计算区域平均值。
-
-项目代码采用 [MIT 许可证](LICENSE)；数据继续适用各自上游条款及署名要求。参见[第三方说明](THIRD_PARTY.md)与[安全说明](SECURITY.md)。
+扩展新来源请先读[扩展约定](docs/extending.md)；EODAG、earthaccess、earthkit-data、intake-esm 是后续复用方向，当前没有安装或接入。代码采用 [MIT](LICENSE)；数据与 API 仍适用各自上游条款、资格、配额和署名要求，见[第三方说明](THIRD_PARTY.md)与[安全说明](SECURITY.md)。

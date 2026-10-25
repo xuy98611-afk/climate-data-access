@@ -1,0 +1,9 @@
+{
+  "source": "nasa-power",
+  "frequency": "daily",
+  "start": "2001-01-01",
+  "end": "2001-01-03",
+  "point": {"latitude": 0, "longitude": 0},
+  "variables": ["T2M", "RH2M", "PRECTOTCORR"],
+  "max_output_mib": 16
+}
