@@ -1,5 +1,7 @@
 # Climate Data Workbench · climate-data-access
 
+The engineering focus is bounded-memory ingestion, lossless compact storage, and selective querying. See the [large-data design and 16 controlled synthetic benchmarks](docs/large-data.md) for reproducible evidence and implementation gates. These experiments are not a production memory cap or a 100 GB ingestion acceptance test.
+
 A local personal research workbench with a Chinese interface, a searchable **44-entry source directory**, reusable JSON requests, explicit retrieval and verifiable outputs. Version **0.2** implements **three retrieval routes**, not 44 connectors.
 
 [中文主文档](README.md) · [Access guide](docs/public-access.md) · [Validation status](docs/status.md) · [Architecture](docs/architecture.md) · [Extending](docs/extending.md) · [Ecosystem](docs/ecosystem.md)

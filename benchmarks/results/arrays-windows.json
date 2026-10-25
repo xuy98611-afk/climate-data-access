@@ -1,0 +1,791 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "created_utc": "2026-10-25T04:29:48.198016+00:00",
+  "benchmark": "Controlled synthetic HDF5 array storage; not complete NetCDF",
+  "hardware": {
+    "system": "Windows",
+    "release": "11",
+    "machine": "AMD64"
+  },
+  "shape": [
+    512,
+    256,
+    256
+  ],
+  "decoded_bytes": 134217728,
+  "slab_bytes": 2097152,
+  "limitations": [
+    "Synthetic values are not ERA5 or representative empirical climate distributions.",
+    "128 MiB per decoded array; no 100 GB, remote ingestion or database benchmark claim.",
+    "Write time includes generation, source hashing, HDF5 flush and close, not an fsync durability guarantee.",
+    "One fresh subprocess per case; same imports; cases run sequentially once; no statistical write-time replication.",
+    "Query timings prime caches, then median of 3 reads on one open HDF5 handle; OS and HDF5 cache effects remain.",
+    "Streaming bounds decoded generation/verification slabs to 2 MiB; HDF5 caches, compression buffers and interpreter use additional RAM.",
+    "Eager case retains the original full array and one full decoded copy through verification and query measurement.",
+    "Lossless float32 bit preservation is checked with full SHA-256; no quantization or imputation.",
+    "Host background load and OneDrive synchronization were not isolated; timings are one local run."
+  ],
+  "results": [
+    {
+      "profile": "smooth_noise",
+      "case": "eager_gzip4_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 80019824,
+      "encoded_to_decoded_ratio": 0.5961941480636597,
+      "decoded_to_encoded_factor": 1.6773059635822243,
+      "write_including_generation_and_source_hash_seconds": 5.325283900005161,
+      "full_verification_seconds": 1.0016548999992665,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43376640,
+      "baseline_peak_rss_bytes": 43376640,
+      "peak_rss_bytes": 329154560,
+      "peak_minus_baseline_rss_bytes": 285777920,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.8570543000096222,
+        "seconds": [
+          0.8273828999954276,
+          0.8604292999953032,
+          0.8570543000096222
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 3.4899989259429276e-05,
+        "seconds": [
+          8.100000559352338e-05,
+          3.4899989259429276e-05,
+          2.8299997211433947e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "smooth_noise",
+      "case": "stream_raw",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": null,
+      "compression_level": null,
+      "shuffle": false,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 134222264,
+      "encoded_to_decoded_ratio": 1.0000337958335876,
+      "decoded_to_encoded_factor": 0.9999662053085321,
+      "write_including_generation_and_source_hash_seconds": 0.9592515000113053,
+      "full_verification_seconds": 0.5715075999905821,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43409408,
+      "baseline_peak_rss_bytes": 43409408,
+      "peak_rss_bytes": 60563456,
+      "peak_minus_baseline_rss_bytes": 17154048,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.0824853000085568,
+        "seconds": [
+          0.08512099999643397,
+          0.08170640000025742,
+          0.0824853000085568
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 2.2499996703118086e-05,
+        "seconds": [
+          5.050000618211925e-05,
+          2.2499996703118086e-05,
+          1.920000067912042e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "smooth_noise",
+      "case": "stream_gzip1_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 1,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 82638762,
+      "encoded_to_decoded_ratio": 0.6157067567110062,
+      "decoded_to_encoded_factor": 1.6241497906273088,
+      "write_including_generation_and_source_hash_seconds": 4.42642989999149,
+      "full_verification_seconds": 0.9944614999985788,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43425792,
+      "baseline_peak_rss_bytes": 43425792,
+      "peak_rss_bytes": 62799872,
+      "peak_minus_baseline_rss_bytes": 19374080,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.7294284999952652,
+        "seconds": [
+          0.7294284999952652,
+          0.810449000011431,
+          0.7286979000054998
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 2.950000634882599e-05,
+        "seconds": [
+          5.810000584460795e-05,
+          2.950000634882599e-05,
+          2.269999822601676e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "smooth_noise",
+      "case": "stream_gzip4_no_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": false,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 112319982,
+      "encoded_to_decoded_ratio": 0.8368490785360336,
+      "decoded_to_encoded_factor": 1.1949585960581797,
+      "write_including_generation_and_source_hash_seconds": 9.712574699995457,
+      "full_verification_seconds": 1.2044582999951672,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43388928,
+      "baseline_peak_rss_bytes": 43388928,
+      "peak_rss_bytes": 62451712,
+      "peak_minus_baseline_rss_bytes": 19062784,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 1.006954800002859,
+        "seconds": [
+          0.9839094000053592,
+          1.006954800002859,
+          1.0085656000010204
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 2.5000001187436283e-05,
+        "seconds": [
+          7.069999992381781e-05,
+          2.5000001187436283e-05,
+          2.0399995264597237e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "smooth_noise",
+      "case": "stream_gzip4_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 80019824,
+      "encoded_to_decoded_ratio": 0.5961941480636597,
+      "decoded_to_encoded_factor": 1.6773059635822243,
+      "write_including_generation_and_source_hash_seconds": 4.880311400003848,
+      "full_verification_seconds": 0.989871799989487,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43380736,
+      "baseline_peak_rss_bytes": 43380736,
+      "peak_rss_bytes": 62722048,
+      "peak_minus_baseline_rss_bytes": 19341312,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.7756845999974757,
+        "seconds": [
+          0.776722399998107,
+          0.7364679999882355,
+          0.7756845999974757
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 0.00010279999696649611,
+        "seconds": [
+          0.00020229999790899456,
+          3.6699988413602114e-05,
+          0.00010279999696649611
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "smooth_noise",
+      "case": "stream_gzip4_shuffle_tiled",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        64,
+        32,
+        32
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 71779876,
+      "encoded_to_decoded_ratio": 0.5348017513751984,
+      "decoded_to_encoded_factor": 1.8698517673672215,
+      "write_including_generation_and_source_hash_seconds": 25.45114289999765,
+      "full_verification_seconds": 5.369006900000386,
+      "full_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "decoded_value_sha256": "b0c618390ed9f286766080d9484e16b08209ced23226b3b1a58fe730c3bba58e",
+      "baseline_rss_bytes": 43438080,
+      "baseline_peak_rss_bytes": 43438080,
+      "peak_rss_bytes": 60616704,
+      "peak_minus_baseline_rss_bytes": 17178624,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 5.250000685919076e-05,
+        "seconds": [
+          7.759999425616115e-05,
+          5.250000685919076e-05,
+          2.020000829361379e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 0.07947959999728482,
+        "seconds": [
+          0.07540319999679923,
+          0.07947959999728482,
+          0.08095039999170695
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "eager_gzip4_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 109276727,
+      "encoded_to_decoded_ratio": 0.8141750618815422,
+      "decoded_to_encoded_factor": 1.228237079245611,
+      "write_including_generation_and_source_hash_seconds": 8.18649049999658,
+      "full_verification_seconds": 0.9878169000003254,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43454464,
+      "baseline_peak_rss_bytes": 43454464,
+      "peak_rss_bytes": 330088448,
+      "peak_minus_baseline_rss_bytes": 286633984,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.8547037000098499,
+        "seconds": [
+          0.8605555999965873,
+          0.801808100004564,
+          0.8547037000098499
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 3.2800002372823656e-05,
+        "seconds": [
+          8.38999985717237e-05,
+          3.2800002372823656e-05,
+          2.1100000594742596e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "stream_raw",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": null,
+      "compression_level": null,
+      "shuffle": false,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 134222264,
+      "encoded_to_decoded_ratio": 1.0000337958335876,
+      "decoded_to_encoded_factor": 0.9999662053085321,
+      "write_including_generation_and_source_hash_seconds": 0.4907494999933988,
+      "full_verification_seconds": 0.2619342000107281,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43442176,
+      "baseline_peak_rss_bytes": 43442176,
+      "peak_rss_bytes": 59940864,
+      "peak_minus_baseline_rss_bytes": 16498688,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.07377139999880455,
+        "seconds": [
+          0.07653400000708643,
+          0.07270820000849199,
+          0.07377139999880455
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 2.1500003640539944e-05,
+        "seconds": [
+          2.7900008717551827e-05,
+          2.1500003640539944e-05,
+          1.8799997633323073e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "stream_gzip1_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 1,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 110097393,
+      "encoded_to_decoded_ratio": 0.8202895000576973,
+      "decoded_to_encoded_factor": 1.2190817996934769,
+      "write_including_generation_and_source_hash_seconds": 5.880469399999129,
+      "full_verification_seconds": 0.9796124999993481,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43212800,
+      "baseline_peak_rss_bytes": 43212800,
+      "peak_rss_bytes": 62148608,
+      "peak_minus_baseline_rss_bytes": 18935808,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.8458065000013448,
+        "seconds": [
+          0.8091473999957088,
+          0.8524119999929098,
+          0.8458065000013448
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 2.370000584051013e-05,
+        "seconds": [
+          5.5500000598840415e-05,
+          2.370000584051013e-05,
+          1.9399987650103867e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "stream_gzip4_no_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": false,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 122568073,
+      "encoded_to_decoded_ratio": 0.9132033064961433,
+      "decoded_to_encoded_factor": 1.0950464073951787,
+      "write_including_generation_and_source_hash_seconds": 10.018875499998103,
+      "full_verification_seconds": 1.12261929998931,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43257856,
+      "baseline_peak_rss_bytes": 43257856,
+      "peak_rss_bytes": 62386176,
+      "peak_minus_baseline_rss_bytes": 19128320,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.978979999999865,
+        "seconds": [
+          0.9991296000080183,
+          0.978979999999865,
+          0.968516399996588
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 6.380000559147447e-05,
+        "seconds": [
+          7.79999973019585e-05,
+          4.849999095313251e-05,
+          6.380000559147447e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "stream_gzip4_shuffle",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        8,
+        256,
+        256
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 109276727,
+      "encoded_to_decoded_ratio": 0.8141750618815422,
+      "decoded_to_encoded_factor": 1.228237079245611,
+      "write_including_generation_and_source_hash_seconds": 7.744826300011482,
+      "full_verification_seconds": 0.9828096999990521,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43323392,
+      "baseline_peak_rss_bytes": 43323392,
+      "peak_rss_bytes": 62255104,
+      "peak_minus_baseline_rss_bytes": 18931712,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 0.8068856000027154,
+        "seconds": [
+          0.8068856000027154,
+          0.7892102000041632,
+          0.8171510999964084
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 0.00018139999883715063,
+        "seconds": [
+          0.00018139999883715063,
+          0.0002673000126378611,
+          5.040000542066991e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    },
+    {
+      "profile": "high_entropy",
+      "case": "stream_gzip4_shuffle_tiled",
+      "passed": true,
+      "shape": [
+        512,
+        256,
+        256
+      ],
+      "dtype": "<f4",
+      "seed": 20261025,
+      "seed_rule": "default_rng(seed + first time index) per 8-time slab",
+      "generation_slab_bytes": 2097152,
+      "chunks": [
+        64,
+        32,
+        32
+      ],
+      "compression": "gzip",
+      "compression_level": 4,
+      "shuffle": true,
+      "decoded_bytes": 134217728,
+      "artifact_bytes": 114247201,
+      "encoded_to_decoded_ratio": 0.8512079790234566,
+      "decoded_to_encoded_factor": 1.1748010176634436,
+      "write_including_generation_and_source_hash_seconds": 36.693773999999394,
+      "full_verification_seconds": 5.620541600001161,
+      "full_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "decoded_value_sha256": "4bc2b2317ea9fd65af9665e8b2dc5a0cacba5dac546ea2e9084ce79bda425b3d",
+      "baseline_rss_bytes": 43175936,
+      "baseline_peak_rss_bytes": 43175936,
+      "peak_rss_bytes": 60010496,
+      "peak_minus_baseline_rss_bytes": 16834560,
+      "rss_method": "Windows GetProcessMemoryInfo WorkingSetSize/PeakWorkingSetSize",
+      "single_point_512_times": {
+        "median_seconds": 3.6999990697950125e-05,
+        "seconds": [
+          8.110000635497272e-05,
+          3.339999238960445e-05,
+          3.6999990697950125e-05
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "single_map_time_256": {
+        "median_seconds": 0.08540070000162814,
+        "seconds": [
+          0.08540070000162814,
+          0.09034310000424739,
+          0.07820020000508521
+        ],
+        "measured_reads": 3,
+        "cache": "Warm OS cache; same open HDF5 handle with default raw chunk cache"
+      },
+      "artifact_retained": false,
+      "scratch_file_removed": true,
+      "libraries": {
+        "python": "3.12.14",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "hdf5": "2.0.0"
+      }
+    }
+  ],
+  "passed": true,
+  "finished_utc": "2026-10-25T04:32:51.959859+00:00",
+  "case_count": 12,
+  "scratch_artifacts_retained": false
+}

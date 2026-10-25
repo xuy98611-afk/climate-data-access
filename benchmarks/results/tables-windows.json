@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "passed": true,
+  "kind": "controlled_synthetic_not_climate_observations",
+  "rows": 1048576,
+  "cases": [
+    {
+      "case": "csv",
+      "rows": 1048576,
+      "batch_rows": 65536,
+      "numeric_payload_bytes": 20971520,
+      "file_bytes": 33561728,
+      "write_and_generate_seconds": 2.1120362000074238,
+      "verify_seconds": 0.45668170000135433,
+      "filter_query_median_seconds": 0.4395602000004146,
+      "duckdb_import_seconds": 0.5699095000018133,
+      "duckdb_import_verification_seconds": 0.15026070000021718,
+      "duckdb_import_types": "time_index: int64\nlat_id: int16\nlon_id: int16\ntemperature: float\nhumidity: float",
+      "duckdb_import_values_exact": true,
+      "duckdb_buffer_limit": "64MB (not a process RSS cap)",
+      "baseline_memory": {
+        "peak_bytes": 49700864,
+        "current_bytes": 49700864,
+        "private_bytes": 403746816
+      },
+      "final_memory": {
+        "peak_bytes": 230809600,
+        "current_bytes": 159903744,
+        "private_bytes": 515588096
+      },
+      "column_sha256": {
+        "time_index": "a78cee677876b925402c15818acd3fc020a47754d9d1c26688914ea09070f8d0",
+        "lat_id": "6c16ebb6c35abe87c8c80c978ec7945fd6ef35804ff9c690c38c972fb30d46f2",
+        "lon_id": "101bef58cdeb74c5f81c97ec60898f2c0729de60832b7dd8e9210d15b441b128",
+        "temperature": "99dbc6f901c91dc843698e73aa615eee4ae332b1e3941661db3ac0fe76d238b6",
+        "humidity": "024575778a422227d82bbcef183c9917b6224d2e190b0e463c5b14a0f01d8dee"
+      },
+      "values_and_types_exact": true,
+      "artifact_retained": false,
+      "versions": {
+        "numpy": "2.5.4",
+        "pyarrow": "26.0.0",
+        "duckdb": "2.0.0"
+      }
+    },
+    {
+      "case": "parquet_none",
+      "rows": 1048576,
+      "batch_rows": 65536,
+      "numeric_payload_bytes": 20971520,
+      "file_bytes": 17763559,
+      "write_and_generate_seconds": 1.3295306999934837,
+      "verify_seconds": 0.05866039999818895,
+      "filter_query_median_seconds": 0.0036522000009426847,
+      "duckdb_import_seconds": 0.08622140000807121,
+      "duckdb_import_verification_seconds": 0.14354620000813156,
+      "duckdb_import_types": "time_index: int64\nlat_id: int16\nlon_id: int16\ntemperature: float\nhumidity: float",
+      "duckdb_import_values_exact": true,
+      "duckdb_buffer_limit": "64MB (not a process RSS cap)",
+      "baseline_memory": {
+        "peak_bytes": 49819648,
+        "current_bytes": 49819648,
+        "private_bytes": 402886656
+      },
+      "final_memory": {
+        "peak_bytes": 208310272,
+        "current_bytes": 141107200,
+        "private_bytes": 526499840
+      },
+      "column_sha256": {
+        "time_index": "a78cee677876b925402c15818acd3fc020a47754d9d1c26688914ea09070f8d0",
+        "lat_id": "6c16ebb6c35abe87c8c80c978ec7945fd6ef35804ff9c690c38c972fb30d46f2",
+        "lon_id": "101bef58cdeb74c5f81c97ec60898f2c0729de60832b7dd8e9210d15b441b128",
+        "temperature": "99dbc6f901c91dc843698e73aa615eee4ae332b1e3941661db3ac0fe76d238b6",
+        "humidity": "024575778a422227d82bbcef183c9917b6224d2e190b0e463c5b14a0f01d8dee"
+      },
+      "values_and_types_exact": true,
+      "artifact_retained": false,
+      "versions": {
+        "numpy": "2.5.4",
+        "pyarrow": "26.0.0",
+        "duckdb": "2.0.0"
+      }
+    },
+    {
+      "case": "parquet_zstd1",
+      "rows": 1048576,
+      "batch_rows": 65536,
+      "numeric_payload_bytes": 20971520,
+      "file_bytes": 7558332,
+      "write_and_generate_seconds": 1.4875285000016447,
+      "verify_seconds": 0.06334059999790043,
+      "filter_query_median_seconds": 0.005616899987217039,
+      "duckdb_import_seconds": 0.11128690000623465,
+      "duckdb_import_verification_seconds": 0.1208115000044927,
+      "duckdb_import_types": "time_index: int64\nlat_id: int16\nlon_id: int16\ntemperature: float\nhumidity: float",
+      "duckdb_import_values_exact": true,
+      "duckdb_buffer_limit": "64MB (not a process RSS cap)",
+      "baseline_memory": {
+        "peak_bytes": 49774592,
+        "current_bytes": 49774592,
+        "private_bytes": 403701760
+      },
+      "final_memory": {
+        "peak_bytes": 198742016,
+        "current_bytes": 131895296,
+        "private_bytes": 522776576
+      },
+      "column_sha256": {
+        "time_index": "a78cee677876b925402c15818acd3fc020a47754d9d1c26688914ea09070f8d0",
+        "lat_id": "6c16ebb6c35abe87c8c80c978ec7945fd6ef35804ff9c690c38c972fb30d46f2",
+        "lon_id": "101bef58cdeb74c5f81c97ec60898f2c0729de60832b7dd8e9210d15b441b128",
+        "temperature": "99dbc6f901c91dc843698e73aa615eee4ae332b1e3941661db3ac0fe76d238b6",
+        "humidity": "024575778a422227d82bbcef183c9917b6224d2e190b0e463c5b14a0f01d8dee"
+      },
+      "values_and_types_exact": true,
+      "artifact_retained": false,
+      "versions": {
+        "numpy": "2.5.4",
+        "pyarrow": "26.0.0",
+        "duckdb": "2.0.0"
+      }
+    },
+    {
+      "case": "parquet_zstd9",
+      "rows": 1048576,
+      "batch_rows": 65536,
+      "numeric_payload_bytes": 20971520,
+      "file_bytes": 7526287,
+      "write_and_generate_seconds": 1.8976982000021962,
+      "verify_seconds": 0.051787200005492195,
+      "filter_query_median_seconds": 0.0038192000065464526,
+      "duckdb_import_seconds": 0.08731960000295658,
+      "duckdb_import_verification_seconds": 0.10632320000149775,
+      "duckdb_import_types": "time_index: int64\nlat_id: int16\nlon_id: int16\ntemperature: float\nhumidity: float",
+      "duckdb_import_values_exact": true,
+      "duckdb_buffer_limit": "64MB (not a process RSS cap)",
+      "baseline_memory": {
+        "peak_bytes": 49778688,
+        "current_bytes": 49778688,
+        "private_bytes": 403968000
+      },
+      "final_memory": {
+        "peak_bytes": 200011776,
+        "current_bytes": 132743168,
+        "private_bytes": 524402688
+      },
+      "column_sha256": {
+        "time_index": "a78cee677876b925402c15818acd3fc020a47754d9d1c26688914ea09070f8d0",
+        "lat_id": "6c16ebb6c35abe87c8c80c978ec7945fd6ef35804ff9c690c38c972fb30d46f2",
+        "lon_id": "101bef58cdeb74c5f81c97ec60898f2c0729de60832b7dd8e9210d15b441b128",
+        "temperature": "99dbc6f901c91dc843698e73aa615eee4ae332b1e3941661db3ac0fe76d238b6",
+        "humidity": "024575778a422227d82bbcef183c9917b6224d2e190b0e463c5b14a0f01d8dee"
+      },
+      "values_and_types_exact": true,
+      "artifact_retained": false,
+      "versions": {
+        "numpy": "2.5.4",
+        "pyarrow": "26.0.0",
+        "duckdb": "2.0.0"
+      }
+    }
+  ],
+  "limitations": [
+    "Single local run; warm filesystem caches; not a production 100GB test",
+    "Repeated identifiers and smooth synthetic floats influence compression ratio",
+    "Generation, hashing and encoding are included in write timing",
+    "Peak RSS includes Python, Arrow, DuckDB and I/O caches; buffer limit is not RSS limit",
+    "Peak RSS includes the full post-import ordered readback verification",
+    "Host background load and OneDrive synchronization were not isolated",
+    "User databases and files are never read or modified"
+  ],
+  "case_count": 4
+}

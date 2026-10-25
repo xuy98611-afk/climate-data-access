@@ -6,6 +6,8 @@
 
 [English](README.en.md) · [44 项获取指南](docs/public-access.md) · [验证状态](docs/status.md) · [架构](docs/architecture.md) · [扩展约定](docs/extending.md) · [成熟工具与复用方向](docs/ecosystem.md)
 
+**核心工程方向：大数据导入时间、低内存处理和无损紧凑存储。** 已完成16组合成基准，验证分块处理、压缩级别与查询布局的取舍；[完整实测与实施主线](docs/large-data.md)列出结果、复现方法和待实现项。生产进程内存上限与100GB导入尚未验收。
+
 ## 启动中文工作台
 
 需要 Python 3.11 或更高版本。Windows 可双击仓库内的 **启动工作台.cmd**，首次按提示安装项目并启动；也可在仓库目录手动安装。

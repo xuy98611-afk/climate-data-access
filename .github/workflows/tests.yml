@@ -20,6 +20,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: python -m pip install -e ".[gee,query]"
       - run: python -m unittest discover -s tests
+      - name: 核对性能实验脚本语法
+        run: python -m py_compile benchmarks/benchmark_arrays.py benchmarks/benchmark_tables.py
       - name: 构建并安装发布包
         run: |
           python -m pip wheel . --no-deps --wheel-dir dist
