@@ -1,10 +1,14 @@
 # 气候数据收集接口 · climate-data-access
 
-这是一个用于规划及按需获取区域 ERA5 逐小时数据的 Python 接口。当前实现使用 Google Earth Engine 官方 SDK，输出压缩 NetCDF 批次及来源、请求和文件校验清单。
+这是一个面向个人研究的气候数据入口目录与 ERA5 按需获取工具。目录覆盖 **44 项产品、分发渠道及工具、9 类用途，其中 NASA 相关 10 项**，包含 NASA POWER、MERRA-2、GPM、SMAP、NOAA、CHIRPS、TerraClimate、未来情景等。
 
-当前为 0.1.0 初期版本。新封装客户端仅使用合成数组做离线测试，本轮没有重新执行云端下载。项目不包含气象原始数据、账号凭据或私人研究数据库。[验证状态](docs/status.md)明确区分历史方法测试与新客户端验证。
+**普通用户先看：[44项入口的中文获取指南](docs/public-access.md)**。每项都列出官网、操作步骤、账号要求、核验范围和访问限制；可直接获取、免费注册、需要申请及尚未确认的项目分开标注。
 
-[English](README.en.md) · [方法与变量](docs/methods.md) · [验证状态](docs/status.md) · [42 项气候数据目录](catalog/sources.json)
+当前可执行的 Python 客户端用于区域 ERA5 逐小时获取，使用 Google Earth Engine 官方 SDK，输出压缩 NetCDF 批次及来源、请求和文件校验清单。目录中的其余项目按指南从上游获取。
+
+当前为 0.1.0 初期版本。GEE新封装客户端仅通过合成数组离线测试；其他入口的有限在线验证范围见获取指南。项目不包含气象原始数据、账号凭据或私人研究数据库。[验证状态](docs/status.md)明确区分历史方法测试与新客户端验证。
+
+[普通用户获取指南](docs/public-access.md) · [English](README.en.md) · [方法与变量](docs/methods.md) · [验证状态](docs/status.md) · [44 项气候数据目录](catalog/sources.json)
 
 ## 安装与离线规划
 
@@ -51,9 +55,9 @@ climate-access bundle data/two-hours --output exports/two-hours.zip
 
 所有请求时刻必须能用 NetCDF 纳秒时间编码表示，最晚为 `2262-04-11T23:00:00Z`；这只是编码边界，不表示 ERA5 已有未来数据。
 
-## 42 项目录与历史验证
+## 44 项目录与历史验证
 
-[公开目录](catalog/sources.json)仅保留产品名称、指标、覆盖、频率、性质和公开入口等产品字段；状态单独列在 `status_by_id`。目录包含来源、分发渠道及工具，并不表示实现了 42 个连接器。
+[公开目录](catalog/sources.json)保存产品名称、指标、覆盖、频率、性质、公开入口及普通用户获取步骤；状态单独列在 `status_by_id`。目录包含来源、分发渠道及工具，并不表示实现了 44 个连接器。
 
 - Earth Engine：当前仅实现 `ECMWF/ERA5/HOURLY`，新客户端为离线测试状态。
 - ARCO：只有历史小样本实验，未实现生产适配器。

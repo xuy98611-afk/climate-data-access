@@ -1,8 +1,41 @@
 {
-  "schema_version": 1,
-  "scope": "公开产品、渠道及工具目录；列入目录不表示实现适配器或验证当前可用性。",
-  "source_count": 42,
+  "schema_version": 2,
+  "scope": "44项气候产品、分发渠道与工具；公开获取条件与代码实现状态分开记录；包含待申请和待核验项目，不表示44项均可直接下载。",
+  "source_count": 44,
   "metadata_review_date": "2026-10-24",
+  "access_tier_legend": {
+    "no_account": "无需账号的公开路线",
+    "free_account": "免费注册后按产品获取",
+    "product_dependent": "按产品分公开、注册或受限",
+    "eligibility_required": "需注册并满足用途资格",
+    "application_required": "需实名、申请或站方确认",
+    "download_not_confirmed": "下载流程尚未确认"
+  },
+  "access_tier_counts": {
+    "free_account": 14,
+    "no_account": 22,
+    "product_dependent": 4,
+    "application_required": 3,
+    "eligibility_required": 1
+  },
+  "category_counts": {
+    "再分析与综合气象": 5,
+    "站点观测": 6,
+    "中国与区域资料": 4,
+    "NASA 与卫星陆面": 9,
+    "降水、干旱与高分辨率格点": 7,
+    "未来气候情景": 3,
+    "公开镜像与云端计算": 4,
+    "海洋、气候指数与灾害": 4,
+    "数值天气预报": 2
+  },
+  "verification_legend": {
+    "anonymous_sample": "无账号小请求通过结构/数量检查，只证明所测样本",
+    "file_prefix": "读取到预期文件格式或CSV前缀，未验证全文件",
+    "listing_or_metadata": "匿名目录或元数据可读，未验证气象值",
+    "official_documentation": "核对官方产品及获取说明；不表示完成登录后下载",
+    "not_download_verified": "只找到门户/申请步骤/年份选择器，下载尚未确认"
+  },
   "status_legend": {
     "catalog_only": "仅登记公开产品，未声称已实现适配器或验证权限。",
     "implemented_offline_tested": "仅实现 ECMWF/ERA5/HOURLY，新客户端只通过离线测试。",
@@ -141,6 +174,12 @@
     ],
     "noaa_gfs": [
       "catalog_only"
+    ],
+    "ncar_gdex_era5": [
+      "catalog_only"
+    ],
+    "cner_station_lead": [
+      "catalog_only"
     ]
   },
   "sources": [
@@ -160,10 +199,27 @@
       "frequency": "小时",
       "data_nature": "再分析",
       "entry_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
-      "evidence_urls": [
-        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
-        "https://cds.climate.copernicus.eu/how-to-api"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+        "steps": [
+          "在CDS免费注册或登录自己的账号。",
+          "选择变量、年月日、小时和小范围区域，接受本数据集条款。",
+          "提交小批请求，等待任务完成后下载；批量编程再按官方API指南配置自己的令牌。"
+        ],
+        "limitations": "注册和许可步骤已由官方说明确认；本轮未代新用户注册或重新提交CDS任务，不能保证排队时长。",
+        "evidence_urls": [
+          "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+          "https://cds.climate.copernicus.eu/how-to-api"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "era5_daily",
@@ -180,11 +236,27 @@
       "frequency": "日；由小时采样聚合",
       "data_nature": "再分析派生统计",
       "entry_url": "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
-      "evidence_urls": [
-        "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
-        "https://cds.climate.copernicus.eu/how-to-api",
-        "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=overview"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
+        "steps": [
+          "注册或登录CDS。",
+          "选择变量、日统计量、小时采样与时区，并接受产品条款。",
+          "先请求少量日期和小区域，完成后下载。"
+        ],
+        "limitations": "日统计是小时数据的聚合；采样和日界要记录。本轮只核对官方目录与获取流程。",
+        "evidence_urls": [
+          "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
+          "https://cds.climate.copernicus.eu/how-to-api"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "era5_land",
@@ -201,11 +273,27 @@
       "frequency": "小时/月，按产品",
       "data_nature": "陆面模型与再分析驱动",
       "entry_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
-      "evidence_urls": [
-        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
-        "https://cds.climate.copernicus.eu/how-to-api",
-        "https://open-meteo.com/en/docs/historical-weather-api"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+        "steps": [
+          "注册或登录CDS。",
+          "选择ERA5-Land所需变量、时间和区域，接受产品条款。",
+          "提交小批任务并从任务结果下载。"
+        ],
+        "limitations": "ERA5-Land与ERA5分开使用；本轮未进行登录后下载验收。",
+        "evidence_urls": [
+          "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+          "https://cds.climate.copernicus.eu/how-to-api"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "open_meteo",
@@ -223,9 +311,30 @@
       "frequency": "小时/日",
       "data_nature": "气象模型与再分析接口",
       "entry_url": "https://open-meteo.com/en/docs/historical-weather-api",
-      "evidence_urls": [
-        "https://open-meteo.com/en/docs/historical-weather-api"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://open-meteo.com/en/docs/historical-weather-api",
+        "steps": [
+          "在历史天气页面填写经纬度和起止日期。",
+          "勾选气温、降水等要素；长期研究明确选择ERA5或ERA5-Land，选择时区。",
+          "使用页面生成的请求，按提供的格式导出或保存响应。"
+        ],
+        "limitations": "免费公开接口有用途和请求量限制，商业及大规模使用核对订阅条件；已实测单点一天24小时JSON。历史预报是另一个子接口，不能当作ERA5。",
+        "evidence_urls": [
+          "https://open-meteo.com/en/docs/historical-weather-api",
+          "https://open-meteo.com/en/terms",
+          "https://open-meteo.com/en/docs/historical-forecast-api"
+        ],
+        "verification_level": "anonymous_sample",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "json_weather"
+        ]
+      }
     },
     {
       "id": "meteostat",
@@ -242,10 +351,29 @@
       "frequency": "小时/日/月",
       "data_nature": "站点汇集；具体接口可能含模型补充",
       "entry_url": "https://dev.meteostat.net/",
-      "evidence_urls": [
-        "https://dev.meteostat.net/",
-        "https://dev.meteostat.net/data/bulk.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://dev.meteostat.net/data/bulk.html",
+        "steps": [
+          "进入Bulk Data，选择日、小时或月数据说明。",
+          "按照官方模板下载相应年份Parquet，并按需取得站点坐标目录。",
+          "用支持Parquet的工具读取，按站号和日期筛选，检查每列来源标记。"
+        ],
+        "limitations": "Bulk无需账号或key；JSON API是另一路线。Parquet需要兼容工具，年文件可能较大；含模型补充值，不能全称纯站点观测。已核验2024年文件PAR1前缀。",
+        "evidence_urls": [
+          "https://dev.meteostat.net/data/bulk.html",
+          "https://dev.meteostat.net/data/bulk/daily"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "parquet_prefix"
+        ]
+      }
     },
     {
       "id": "noaa_ghcnd",
@@ -261,10 +389,29 @@
       "frequency": "日",
       "data_nature": "站点观测",
       "entry_url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
-      "evidence_urls": [
-        "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
-        "https://www.ncei.noaa.gov/cdo-web/webservices/v2"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
+        "steps": [
+          "先读取readme和站点目录，确定站号。",
+          "进入all或by_station目录，下载对应测站文件。",
+          "按官方字段定义读取气温和降水，并保留缺测与质量旗标。"
+        ],
+        "limitations": "公开文件路线无需CDO令牌；固定宽度.dly不等于现成Excel。已读取一个站文件前缀，未下载全站年序列。",
+        "evidence_urls": [
+          "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
+          "https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "text_prefix"
+        ]
+      }
     },
     {
       "id": "noaa_isd",
@@ -282,10 +429,30 @@
       "frequency": "小时/次日内",
       "data_nature": "站点观测",
       "entry_url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
-      "evidence_urls": [
-        "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
-        "https://www.ncei.noaa.gov/data/global-hourly/access/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+        "steps": [
+          "从产品说明确定站号和年份。",
+          "优先使用官方Access Data Service的global-hourly短日期CSV请求，或从现行产品页进入文件分发。",
+          "先取一天检查字段及质量码，再扩大时段；ISD-Lite是另一个简化子通道。"
+        ],
+        "limitations": "旧global-hourly和ISD-Lite文件URL在此次测试返回HTML，未误判为CSV成功；官方数据服务短日期CSV可读。NOAA正在迁移云服务，按当前产品页定位。",
+        "evidence_urls": [
+          "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+          "https://www.ncei.noaa.gov/support/access-data-service-api"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "download_directory",
+          "alternative_sample"
+        ]
+      }
     },
     {
       "id": "noaa_gsod",
@@ -301,10 +468,29 @@
       "frequency": "日",
       "data_nature": "站点观测的日统计",
       "entry_url": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
-      "evidence_urls": [
-        "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
-        "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00516/html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
+        "steps": [
+          "在公开目录点击年份。",
+          "按USAF+WBAN站号找到对应CSV文件并下载。",
+          "用Excel导入CSV，按变量说明识别单位、缺测码及观测次数。"
+        ],
+        "limitations": "已核验示例年度CSV前缀；日均统计不是小时原值，不能据此得到日最低能见度或低能见度时长。",
+        "evidence_urls": [
+          "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
+          "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00516/html"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "csv_prefix"
+        ]
+      }
     },
     {
       "id": "dwd_cdc",
@@ -321,9 +507,29 @@
       "frequency": "小时/日/月等",
       "data_nature": "观测与格点派生产品",
       "entry_url": "https://opendata.dwd.de/climate_environment/CDC/",
-      "evidence_urls": [
-        "https://opendata.dwd.de/climate_environment/CDC/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://opendata.dwd.de/climate_environment/CDC/",
+        "steps": [
+          "选择observations_germany、observations_global或需要的格点目录。",
+          "逐层选择变量、频率，以及historical或recent。",
+          "下载站点说明和数据压缩包，按随附字段说明读取。"
+        ],
+        "limitations": "公开目录无账号；Python本次出现本地证书链问题，Windows系统证书客户端及独立浏览工具可读，未关闭TLS验证。",
+        "evidence_urls": [
+          "https://opendata.dwd.de/climate_environment/CDC/",
+          "https://opendata.dwd.de/climate_environment/CDC/Liesmich_intro_CDC-FTP.txt"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "system_tls_directory"
+        ]
+      }
     },
     {
       "id": "metoffice_ceda",
@@ -339,12 +545,27 @@
       "frequency": "日/月/年等",
       "data_nature": "观测、观测插值与产品目录",
       "entry_url": "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
-      "evidence_urls": [
-        "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
-        "https://archive.ceda.ac.uk/",
-        "https://help.ceda.ac.uk/article/39-ceda-account",
-        "https://help.ceda.ac.uk/article/137-ceda-data-catalogue"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "product_dependent",
+        "access_tier_label": "按产品分公开、注册或受限",
+        "start_url": "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
+        "steps": [
+          "在Met Office数据页选择需要的具体产品。",
+          "公开文本可直接下载；进入CEDA时检查Public、Registered或Restricted标记。",
+          "Registered产品用个人账号注册，Restricted产品按该数据集要求申请。"
+        ],
+        "limitations": "CEDA允许个人注册，但部分产品有地区或机构限制；不能把整个CEDA都称作普通人免费直下。",
+        "evidence_urls": [
+          "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
+          "https://help.ceda.ac.uk/article/39-ceda-account"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "cma",
@@ -360,10 +581,28 @@
       "frequency": "小时/日/月等",
       "data_nature": "观测与气象业务资料",
       "entry_url": "https://data.cma.cn/",
-      "evidence_urls": [
-        "https://data.cma.cn/",
-        "https://www.cma.gov.cn/wmhd/gzly/cjwt/202204/t20220415_4759049.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "application_required",
+        "access_tier_label": "需实名、申请或站方确认",
+        "start_url": "https://data.cma.cn/",
+        "steps": [
+          "打开中国气象数据网并查看目标数据集的访问对象。",
+          "按网站要求实名注册和提交所需用途材料。",
+          "账号无权访问或需要当地站资料时，按中国气象局公开指引咨询相应部门。"
+        ],
+        "limitations": "主页读取结果不稳定，本轮未完成普通个人账号下载验收；实名注册不保证所有站点和年份获准。需要中国站点时也可另查NOAA公开站点，但不能承诺覆盖相同。",
+        "evidence_urls": [
+          "https://data.cma.cn/",
+          "https://www.cma.gov.cn/wmhd/gzly/cjwt/202204/t20220415_4759049.html",
+          "https://data.nsmc.org.cn/dataportal/cn/support/user.html"
+        ],
+        "verification_level": "not_download_verified",
+        "availability": "application_required",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "tpdc",
@@ -381,9 +620,27 @@
       "frequency": "小时/日/月等",
       "data_nature": "实测、融合、模型产品混合目录",
       "entry_url": "https://data.tpdc.ac.cn/",
-      "evidence_urls": [
-        "https://data.tpdc.ac.cn/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "application_required",
+        "access_tier_label": "需实名、申请或站方确认",
+        "start_url": "https://data.tpdc.ac.cn/",
+        "steps": [
+          "在支持JavaScript的浏览器里搜索数据集或DOI。",
+          "阅读具体产品的共享方式、用途及申请条件，使用自己的账号登录。",
+          "开放下载按页面操作；受控产品提交申请后等待审核。"
+        ],
+        "limitations": "本轮读取到JS门户和公开服务说明，未执行登录后下载；各产品分别授权，不承诺所有资料对任意个人自动开放。",
+        "evidence_urls": [
+          "https://data.tpdc.ac.cn/",
+          "https://www.tpdc.ac.cn/about"
+        ],
+        "verification_level": "not_download_verified",
+        "availability": "application_required",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "imd_india",
@@ -397,9 +654,28 @@
       "frequency": "日，按年文件",
       "data_nature": "观测插值",
       "entry_url": "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html",
-      "evidence_urls": [
-        "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html",
+        "steps": [
+          "进入0.25°逐日格点降水的官方页面。",
+          "从年份选择框选一年的NetCDF。",
+          "按页面下载提示操作；如出现登记或条款，先核对身份要求再继续。"
+        ],
+        "limitations": "已按公开年份选择器匿名提交2024年请求，读取1KiB并确认NetCDF/HDF5签名；未下载或核验整年文件。仅覆盖印度产品范围。",
+        "evidence_urls": [
+          "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "year_form_file_prefix"
+        ]
+      }
     },
     {
       "id": "earthdata",
@@ -417,11 +693,28 @@
       "frequency": "按产品",
       "data_nature": "数据总目录",
       "entry_url": "https://search.earthdata.nasa.gov/",
-      "evidence_urls": [
-        "https://search.earthdata.nasa.gov/",
-        "https://urs.earthdata.nasa.gov/users/new",
-        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://search.earthdata.nasa.gov/",
+        "steps": [
+          "免费注册自己的Earthdata Login账号并验证邮箱。",
+          "在Earthdata Search选数据集、时间和区域。",
+          "登录后按产品下载或定制；如提示授权，只授权所需的官方数据应用。"
+        ],
+        "limitations": "这是数据检索平台，不是一套单独气候数据；本轮核对免费自助注册说明，未验证新账号的每个下载服务。",
+        "evidence_urls": [
+          "https://search.earthdata.nasa.gov/",
+          "https://urs.earthdata.nasa.gov/documentation/for_users",
+          "https://nsidc.org/data/user-resources/help-center/downloading-nsidc-daac-earthdata-cloud-data-using-web-browser"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "nasa_power",
@@ -439,10 +732,30 @@
       "frequency": "小时/日/月/气候平均",
       "data_nature": "卫星与模型派生",
       "entry_url": "https://power.larc.nasa.gov/",
-      "evidence_urls": [
-        "https://power.larc.nasa.gov/",
-        "https://power.larc.nasa.gov/docs/tutorials/service-data-request/api/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://power.larc.nasa.gov/data-access-viewer/",
+        "steps": [
+          "在Data Access Viewer选地图点和所需应用类别。",
+          "选择小时、日或月、时间范围及气温/辐射/风等变量。",
+          "导出所需格式；不会操作地图时，可先打开本指南给出的单点JSON示例。"
+        ],
+        "limitations": "已匿名验证逐日2条及逐小时24条T2M响应；不是站点实测，不对所有变量组合或区域配额作保证。",
+        "evidence_urls": [
+          "https://power.larc.nasa.gov/data-access-viewer/",
+          "https://power.larc.nasa.gov/docs/services/api/"
+        ],
+        "verification_level": "anonymous_sample",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "json_daily",
+          "json_hourly"
+        ]
+      }
     },
     {
       "id": "merra2",
@@ -460,10 +773,27 @@
       "frequency": "小时/月等",
       "data_nature": "再分析",
       "entry_url": "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/",
-      "evidence_urls": [
-        "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/",
-        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/data-access_merra-2/",
+        "steps": [
+          "注册Earthdata Login。",
+          "从官方Data Access进入GES DISC，选对应MERRA-2集合。",
+          "设置时间和区域，按产品页面下载或子集服务操作，并完成所需应用授权。"
+        ],
+        "limitations": "已核对官方分发和免费账号流程，未做登录后取数；瞬时、时均与累计量分开解释。",
+        "evidence_urls": [
+          "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/data-access_merra-2/",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "gldas",
@@ -480,10 +810,27 @@
       "frequency": "3小时/月等，按产品",
       "data_nature": "陆面模型及同化",
       "entry_url": "https://ldas.gsfc.nasa.gov/gldas",
-      "evidence_urls": [
-        "https://ldas.gsfc.nasa.gov/gldas",
-        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://ldas.gsfc.nasa.gov/gldas",
+        "steps": [
+          "注册Earthdata Login。",
+          "在Get the Data分别选择GLDAS、NLDAS或FLDAS，进入GES DISC。",
+          "选模型、版本、变量和时间，按下载或子集服务提示获取。"
+        ],
+        "limitations": "三个系统的范围和模型不同；本轮核对产品页与流程，未完成登录后的下载验收。",
+        "evidence_urls": [
+          "https://ldas.gsfc.nasa.gov/gldas",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "gpm_imerg",
@@ -498,10 +845,27 @@
       "frequency": "半小时/日/月",
       "data_nature": "卫星融合与站点校正",
       "entry_url": "https://gpm.nasa.gov/data/imerg",
-      "evidence_urls": [
-        "https://gpm.nasa.gov/data/imerg",
-        "https://urs.earthdata.nasa.gov/users/new"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://gpm.nasa.gov/data/imerg",
+        "steps": [
+          "注册Earthdata Login。",
+          "从GPM数据目录选择所需IMERG版本，进入Earthdata或GES DISC路线。",
+          "确定Early/Late/Final、时间频率及区域后下载；PPS路线如使用须另核对注册。"
+        ],
+        "limitations": "选择的免费账号路线与PPS权限分开；本轮未进行登录后下载，不混用降水率与累计量。",
+        "evidence_urls": [
+          "https://gpm.nasa.gov/data/imerg",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "smap",
@@ -516,10 +880,28 @@
       "frequency": "轨道/日/3小时等",
       "data_nature": "遥感反演与同化",
       "entry_url": "https://smap.jpl.nasa.gov/data/",
-      "evidence_urls": [
-        "https://smap.jpl.nasa.gov/data/",
-        "https://urs.earthdata.nasa.gov/users/new"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://smap.jpl.nasa.gov/data/",
+        "steps": [
+          "注册Earthdata Login。",
+          "从SMAP产品表选择等级并进入NSIDC数据页。",
+          "使用Earthdata Search或页面的HTTPS File System，按日期找到文件并登录下载。"
+        ],
+        "limitations": "官方有无需编程的浏览器下载教程；本轮未登录取数，L4是模型同化产品。",
+        "evidence_urls": [
+          "https://smap.jpl.nasa.gov/data/",
+          "https://nsidc.org/data/user-resources/help-center/downloading-nsidc-daac-earthdata-cloud-data-using-web-browser",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "modis_viirs",
@@ -537,11 +919,28 @@
       "frequency": "日/多日合成/月等",
       "data_nature": "遥感反演",
       "entry_url": "https://appeears.earthdatacloud.nasa.gov/",
-      "evidence_urls": [
-        "https://appeears.earthdatacloud.nasa.gov/",
-        "https://urs.earthdata.nasa.gov/users/new",
-        "https://ecostress.jpl.nasa.gov/downloads/tutorials/06-Downloading_from_AppEEARS.pdf"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://appeears.earthdatacloud.nasa.gov/",
+        "steps": [
+          "注册并登录Earthdata账号。",
+          "在AppEEARS创建点或区域提取任务，选择产品、变量、日期和位置。",
+          "先提交小任务，完成后下载结果并保留质量层及比例因子。"
+        ],
+        "limitations": "AppEEARS是JS应用，不包含全部MODIS/VIIRS产品；本轮核对门户及官方说明，未提交登录后提取任务。",
+        "evidence_urls": [
+          "https://appeears.earthdatacloud.nasa.gov/",
+          "https://appeears.earthdatacloud.nasa.gov/api/",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "giovanni",
@@ -558,10 +957,28 @@
       "frequency": "按产品",
       "data_nature": "在线分析工具",
       "entry_url": "https://giovanni.gsfc.nasa.gov/giovanni/",
-      "evidence_urls": [
-        "https://giovanni.gsfc.nasa.gov/giovanni/",
-        "https://gpm.nasa.gov/data/imerg"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://giovanni.gsfc.nasa.gov/giovanni/",
+        "steps": [
+          "使用Earthdata Login登录Giovanni。",
+          "选择数据集、变量、时间及区域，再选择时间序列或区域统计。",
+          "先运行一个小分析，完成后导出结果，记录数据来源和统计方法。"
+        ],
+        "limitations": "在线分析工具，不是独立数据源；本轮核对门户及LDAS官方说明，未运行登录后分析。",
+        "evidence_urls": [
+          "https://giovanni.gsfc.nasa.gov/giovanni/",
+          "https://ldas.gsfc.nasa.gov/gldas",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "ceres",
@@ -577,10 +994,28 @@
       "frequency": "小时/日/月等",
       "data_nature": "卫星与辐射产品",
       "entry_url": "https://ceres.larc.nasa.gov/data/",
-      "evidence_urls": [
-        "https://ceres.larc.nasa.gov/data/",
-        "https://urs.earthdata.nasa.gov/users/new"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://ceres.larc.nasa.gov/Data/",
+        "steps": [
+          "先检查CERES产品页顶部维护公告。",
+          "选产品后进入Order Data或CERES Search and Subsetting。",
+          "使用Earthdata账号登录并选择时空范围下载；维护期间稍后重试。"
+        ],
+        "limitations": "官方公告列出2026-10-23至10-26维护窗口，本次按暂时维护标记，不能保证现在完成下载。Earthdata登录要求有官方说明。",
+        "evidence_urls": [
+          "https://ceres.larc.nasa.gov/Data/",
+          "https://subset.larc.nasa.gov/ceres/login.php",
+          "https://urs.earthdata.nasa.gov/documentation/for_users"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "temporary_maintenance",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "chirps",
@@ -595,11 +1030,29 @@
       "frequency": "日/候/旬/月/年",
       "data_nature": "卫星与站点融合及时间分解",
       "entry_url": "https://www.chc.ucsb.edu/data/chirps3",
-      "evidence_urls": [
-        "https://www.chc.ucsb.edu/data/chirps3",
-        "https://www.chc.ucsb.edu/data/chirps",
-        "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.chc.ucsb.edu/data/chirps3",
+        "steps": [
+          "进入CHIRPS v3说明并点击对应数据下载目录。",
+          "选日、月或候等频率，区分preliminary和final，再选年份。",
+          "下载NetCDF或GeoTIFF文件，并记录v3版本及日产品路线。"
+        ],
+        "limitations": "目录可匿名读取；不把v2、v3或不同日下分配产品混用。本轮检查目录，不做完整栅格下载。",
+        "evidence_urls": [
+          "https://www.chc.ucsb.edu/data/chirps3",
+          "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "download_directory"
+        ]
+      }
     },
     {
       "id": "gpcc",
@@ -613,11 +1066,28 @@
       "frequency": "月/日等",
       "data_nature": "雨量站格点插值",
       "entry_url": "https://opendata.dwd.de/climate_environment/GPCC/",
-      "evidence_urls": [
-        "https://www.dwd.de/EN/ourservices/gpcc/gpcc.html",
-        "https://opendata.dwd.de/climate_environment/CDC/",
-        "https://opendata.dwd.de/climate_environment/GPCC/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://opendata.dwd.de/climate_environment/GPCC/",
+        "steps": [
+          "在目录选择Daily、Monthly或Climatology产品。",
+          "继续选版本与网格，先下载README和说明。",
+          "再下载所需年份文件，用支持NetCDF的工具读取。"
+        ],
+        "limitations": "系统证书客户端确认目录公开可读；未关闭TLS校验。目录可读不证明所有年份文件完整。",
+        "evidence_urls": [
+          "https://opendata.dwd.de/climate_environment/GPCC/"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "system_tls_directory"
+        ]
+      }
     },
     {
       "id": "terraclimate",
@@ -635,9 +1105,26 @@
       "frequency": "月",
       "data_nature": "气候插值、再分析驱动与水量平衡模型",
       "entry_url": "https://www.climatologylab.org/terraclimate.html",
-      "evidence_urls": [
-        "https://www.climatologylab.org/terraclimate.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.climatologylab.org/terraclimate.html",
+        "steps": [
+          "打开Download部分，选择官方年度NetCDF目录或THREDDS子集入口。",
+          "按版本、变量和年份选择所需文件。",
+          "下载或裁剪子集后读取，保留单位和来源说明。"
+        ],
+        "limitations": "官方页面明确提供逐变量/逐年文件和子集路线；本轮未下载整年文件。v1.0与v1.1不能随意拼接。",
+        "evidence_urls": [
+          "https://www.climatologylab.org/terraclimate.html"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "cru_ts",
@@ -654,10 +1141,29 @@
       "frequency": "月；CY含季/年",
       "data_nature": "观测插值与聚合",
       "entry_url": "https://crudata.uea.ac.uk/cru/data/hrg/",
-      "evidence_urls": [
-        "https://crudata.uea.ac.uk/cru/data/hrg/",
-        "https://help.ceda.ac.uk/article/39-ceda-account"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "product_dependent",
+        "access_tier_label": "按产品分公开、注册或受限",
+        "start_url": "https://crudata.uea.ac.uk/cru/data/hrg/",
+        "steps": [
+          "在CRU页面选择当前版本或明确需要的历史版本。",
+          "按该版本链接进入CRU目录或CEDA，先查看访问等级。",
+          "公开目录直接下载；CEDA需账号的产品按个人注册和产品条款操作。"
+        ],
+        "limitations": "CRU公开目录本轮可读；不同版次可能走CEDA或按需申请。不要把所有CRU产品都写成无需注册。",
+        "evidence_urls": [
+          "https://crudata.uea.ac.uk/cru/data/hrg/",
+          "https://help.ceda.ac.uk/article/39-ceda-account"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": [
+          "download_directory"
+        ]
+      }
     },
     {
       "id": "worldclim",
@@ -673,9 +1179,28 @@
       "frequency": "多年气候平均/月等",
       "data_nature": "观测插值、降尺度与情景产品",
       "entry_url": "https://www.worldclim.org/data/index.html",
-      "evidence_urls": [
-        "https://www.worldclim.org/data/index.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.worldclim.org/data/worldclim21.html",
+        "steps": [
+          "在历史气候页面选择变量与网格分辨率。",
+          "点击表格中的ZIP链接下载。",
+          "解压后用QGIS等兼容工具读取GeoTIFF；先从较小的10分钟网格开始。"
+        ],
+        "limitations": "已核验示例ZIP前缀；这些长期气候平均不能代替每年的真实天气序列。",
+        "evidence_urls": [
+          "https://www.worldclim.org/data/worldclim21.html"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "zip_prefix"
+        ]
+      }
     },
     {
       "id": "chelsa",
@@ -692,9 +1217,27 @@
       "frequency": "日/月/气候平均等",
       "data_nature": "降尺度产品",
       "entry_url": "https://www.chelsa-climate.org/",
-      "evidence_urls": [
-        "https://www.chelsa-climate.org/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.chelsa-climate.org/",
+        "steps": [
+          "在Datasets选择需要的日、月、气候平均或情景产品。",
+          "检查产品页状态和覆盖，再进入Download链接的公开存储浏览器。",
+          "按变量和时段下载；先检查一小块文件与质量说明。"
+        ],
+        "limitations": "部分产品标有缺口或incomplete，不能承诺所需日期齐全；本轮核对产品与下载入口，未整文件下载。",
+        "evidence_urls": [
+          "https://www.chelsa-climate.org/",
+          "https://envicloud.wsl.ch/"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "spei",
@@ -709,10 +1252,30 @@
       "frequency": "月/多累积尺度",
       "data_nature": "指数产品",
       "entry_url": "https://spei.csic.es/database.html",
-      "evidence_urls": [
-        "https://spei.csic.es/database.html",
-        "https://spei.csic.es/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://spei.csic.es/database.html",
+        "steps": [
+          "进入SPEIbase当前版本的交互地图。",
+          "选择时间尺度，地图选点后使用Download point导出序列。",
+          "需要格点数据时使用Download NC；先确认文件较大和所需时间尺度。"
+        ],
+        "limitations": "已找到2.11版实际NetCDF，并匿名核验1KiB文件签名；浏览工具超时不等于服务不可用。未核验全文件和逐值准确性。",
+        "evidence_urls": [
+          "https://spei.csic.es/database.html",
+          "https://spei.csic.es/spei_database_2_11/",
+          "https://spei.csic.es/spei_database_2_11/nc/spei01.nc"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "netcdf_prefix"
+        ]
+      }
     },
     {
       "id": "cmip6_cds",
@@ -728,10 +1291,27 @@
       "frequency": "日/月，按变量",
       "data_nature": "气候模式模拟",
       "entry_url": "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=overview",
-      "evidence_urls": [
-        "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=overview",
-        "https://cds.climate.copernicus.eu/how-to-api"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=download",
+        "steps": [
+          "注册或登录CDS。",
+          "选择模式、成员、情景、变量、频率和年份，接受具体许可。",
+          "先提交小范围任务，完成后下载并记录日历和成员信息。"
+        ],
+        "limitations": "当前目录与账号/API流程已核对，本轮未进行登录后下载。未来情景不是历史观测。",
+        "evidence_urls": [
+          "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=download",
+          "https://cds.climate.copernicus.eu/how-to-api"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "nex_gddp",
@@ -748,10 +1328,29 @@
       "frequency": "日",
       "data_nature": "偏差校正及降尺度情景",
       "entry_url": "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
-      "evidence_urls": [
-        "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
-        "https://registry.opendata.aws/nex-gddp-cmip6/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
+        "steps": [
+          "从官方Data Access进入AWS公开存储或THREDDS。",
+          "选择模式、情景、成员、变量和年份。",
+          "按提供的文件链接下载，或使用THREDDS页面的子集服务。"
+        ],
+        "limitations": "匿名S3对象列表已实测；本轮未下载完整情景文件，也不需要申请NCCS计算账号来使用这条公开存储路线。",
+        "evidence_urls": [
+          "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
+          "https://registry.opendata.aws/nex-gddp-cmip6/"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "object_listing"
+        ]
+      }
     },
     {
       "id": "esgf",
@@ -767,10 +1366,26 @@
       "frequency": "按产品",
       "data_nature": "多机构气候数据目录",
       "entry_url": "https://esgf.github.io/",
-      "evidence_urls": [
-        "https://esgf.github.io/",
-        "https://aims2.llnl.gov/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "product_dependent",
+        "access_tier_label": "按产品分公开、注册或受限",
+        "start_url": "https://esgf.github.io/",
+        "steps": [
+          "从ESGF官网进入其推荐的Metagrid检索。",
+          "按项目、模式、情景、变量和频率筛选文件。",
+          "选择节点的HTTP下载；若该节点要求注册或接受条款，按节点提示操作。"
+        ],
+        "limitations": "平台在迁移，节点规则不同；官网可读不等于所有搜索结果的文件都通过下载测试。",
+        "evidence_urls": [
+          "https://esgf.github.io/"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "arco",
@@ -784,9 +1399,28 @@
       "frequency": "小时",
       "data_nature": "ERA5云端副本",
       "entry_url": "https://github.com/google-research/arco-era5",
-      "evidence_urls": [
-        "https://github.com/google-research/arco-era5"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://github.com/google-research/arco-era5",
+        "steps": [
+          "阅读项目说明，选择所需变量所在的Zarr存储及版本。",
+          "先检查元数据、时间起点、坐标和分块形状。",
+          "用支持Zarr的工具只读取所需时空子集，先测试一个小时。"
+        ],
+        "limitations": "匿名Zarr组元数据读取通过；全球块可能很大，需要编程工具。不是给每个用户预先裁好的下载包。",
+        "evidence_urls": [
+          "https://github.com/google-research/arco-era5"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "zarr_metadata"
+        ]
+      }
     },
     {
       "id": "planette",
@@ -801,10 +1435,29 @@
       "frequency": "日/月/季等",
       "data_nature": "ERA5聚合镜像",
       "entry_url": "https://registry.opendata.aws/planette_era5_reanalysis/",
-      "evidence_urls": [
-        "https://registry.opendata.aws/planette_era5_reanalysis/",
-        "https://github.com/PlanetteAI/planette_era5_archive"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://registry.opendata.aws/planette_era5_reanalysis/",
+        "steps": [
+          "从AWS公开数据登记页进入Browse Dataset。",
+          "按发布方说明选择ERA5聚合产品、变量和快照。",
+          "使用支持Zarr/icechunk的工具读取小子集，保留实际快照和聚合口径。"
+        ],
+        "limitations": "官方明确无需AWS账号，匿名对象列表通过；云原生格式需要工具，不是直接Excel下载。",
+        "evidence_urls": [
+          "https://registry.opendata.aws/planette_era5_reanalysis/",
+          "https://github.com/PlanetteAI/planette_era5_archive"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "object_listing"
+        ]
+      }
     },
     {
       "id": "earth_engine",
@@ -821,10 +1474,26 @@
       "frequency": "按产品",
       "data_nature": "云计算与数据目录",
       "entry_url": "https://developers.google.com/earth-engine/datasets",
-      "evidence_urls": [
-        "https://developers.google.com/earth-engine/datasets",
-        "https://developers.google.com/earth-engine/guides/access"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "eligibility_required",
+        "access_tier_label": "需注册并满足用途资格",
+        "start_url": "https://developers.google.com/earth-engine/guides/access",
+        "steps": [
+          "用自己的Google账号创建Cloud项目并启用Earth Engine API。",
+          "注册项目用途，符合非商业资格时完成验证；商业用途按官方计费方案处理。",
+          "在Code Editor或SDK里选数据集，先运行一个小区域任务。"
+        ],
+        "limitations": "免费计算需要用途资格和周期性验证；不能承诺任意用户免费使用。只取ERA5时可改走CDS或公开镜像。",
+        "evidence_urls": [
+          "https://developers.google.com/earth-engine/guides/access"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "noaa_psl",
@@ -842,9 +1511,29 @@
       "frequency": "多为月，也有其他频率",
       "data_nature": "观测/再分析派生指数",
       "entry_url": "https://psl.noaa.gov/data/climateindices/list/",
-      "evidence_urls": [
-        "https://psl.noaa.gov/data/climateindices/list/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://psl.noaa.gov/data/climateindices/list/",
+        "steps": [
+          "在列表选择Niño3.4、PDO、NAO等所需指数。",
+          "打开对应原始时间序列文件。",
+          "保存为文本并用Excel或其他工具导入，按说明处理缺测码。"
+        ],
+        "limitations": "Niño3.4公开文本已读取；各指数基准期和版本分别记录。",
+        "evidence_urls": [
+          "https://psl.noaa.gov/data/climateindices/list/",
+          "https://psl.noaa.gov/data/correlation/nina34.data"
+        ],
+        "verification_level": "anonymous_sample",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "index_text"
+        ]
+      }
     },
     {
       "id": "ibtracs",
@@ -861,9 +1550,29 @@
       "frequency": "轨迹时刻",
       "data_nature": "多机构最佳路径合并",
       "entry_url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
-      "evidence_urls": [
-        "https://www.ncei.noaa.gov/products/international-best-track-archive"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+        "steps": [
+          "在产品页选择CSV Data、NetCDF或Shapefile。",
+          "从公开目录选择版本与海盆子集，先下载较小文件。",
+          "保留机构字段、风速口径和缺测标记。"
+        ],
+        "limitations": "示例海盆CSV前缀已核验；轨迹融合不是每家机构原始记录的完全等价替代。",
+        "evidence_urls": [
+          "https://www.ncei.noaa.gov/products/international-best-track-archive",
+          "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/"
+        ],
+        "verification_level": "file_prefix",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "csv_prefix"
+        ]
+      }
     },
     {
       "id": "copernicus_marine",
@@ -881,11 +1590,27 @@
       "frequency": "小时/日/月，按产品",
       "data_nature": "观测与海洋模型/再分析目录",
       "entry_url": "https://data.marine.copernicus.eu/",
-      "evidence_urls": [
-        "https://data.marine.copernicus.eu/",
-        "https://help.marine.copernicus.eu/en/articles/4220332-how-to-register-for-copernicus-marine-service",
-        "https://help.marine.copernicus.eu/en/articles/16733110-how-to-access-and-download-copernicus-marine-data"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://data.marine.copernicus.eu/products",
+        "steps": [
+          "免费注册Marine账号，或使用受支持的CDSE联合登录。",
+          "在产品目录选择海温、流速等数据，检查覆盖和变量。",
+          "设置所需子集并下载；按产品页面选择浏览器或Toolbox路线。"
+        ],
+        "limitations": "官方允许无机构个人注册，下载需要登录；本轮核对流程，未代注册或执行登录后下载。",
+        "evidence_urls": [
+          "https://data.marine.copernicus.eu/products",
+          "https://help.marine.copernicus.eu/en/articles/4220332-how-to-register-for-copernicus-marine-service"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "cams_ads",
@@ -902,9 +1627,27 @@
       "frequency": "小时/月等",
       "data_nature": "大气成分观测与模型/再分析",
       "entry_url": "https://ads.atmosphere.copernicus.eu/",
-      "evidence_urls": [
-        "https://ads.atmosphere.copernicus.eu/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "free_account",
+        "access_tier_label": "免费注册后按产品获取",
+        "start_url": "https://ads.atmosphere.copernicus.eu/",
+        "steps": [
+          "在ADS注册或登录自己的ECMWF可用账号。",
+          "选CAMS产品、变量、区域和时间，接受对应产品条款。",
+          "先通过下载表单请求小批数据；需要编程时按官方CDSAPI指南配置。"
+        ],
+        "limitations": "账号品牌相同不表示所有数据集已接受许可或有权限；本轮未登录下载。",
+        "evidence_urls": [
+          "https://ads.atmosphere.copernicus.eu/",
+          "https://cds.climate.copernicus.eu/how-to-api"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "jra3q",
@@ -920,9 +1663,28 @@
       "frequency": "小时级/月等，按产品",
       "data_nature": "再分析",
       "entry_url": "https://jra.kishou.go.jp/JRA-3Q/index_en.html",
-      "evidence_urls": [
-        "https://jra.kishou.go.jp/JRA-3Q/index_en.html"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "product_dependent",
+        "access_tier_label": "按产品分公开、注册或受限",
+        "start_url": "https://www.data.jma.go.jp/jra/html/JRA-3Q/index_en.html",
+        "steps": [
+          "从当前JMA页面选择NCAR/GDEX协作分发，不使用旧失效主机。",
+          "进入GDEX的d640000产品页，按需要注册个人账号和接受非商业许可。",
+          "选择数据产品和时段，按GDEX下载方式取小样本。"
+        ],
+        "limitations": "旧JMA地址失败已更新；JMA现提示DIAS长期维护。GDEX允许无机构个人注册，但本轮只核对产品/账号政策，未完成登录后下载。",
+        "evidence_urls": [
+          "https://www.data.jma.go.jp/jra/html/JRA-3Q/index_en.html",
+          "https://gdex.ucar.edu/datasets/d640000/",
+          "https://gdex.ucar.edu/news/open-access-data/"
+        ],
+        "verification_level": "official_documentation",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     },
     {
       "id": "ecmwf_forecast",
@@ -942,10 +1704,29 @@
       "frequency": "多个UTC起报时次与预报时效；输出间隔按产品",
       "data_nature": "数值天气预报及AI天气预报",
       "entry_url": "https://www.ecmwf.int/en/forecasts/datasets/open-data",
-      "evidence_urls": [
-        "https://www.ecmwf.int/en/forecasts/datasets/open-data",
-        "https://data.ecmwf.int/forecasts/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://www.ecmwf.int/en/forecasts/datasets/open-data",
+        "steps": [
+          "点击Browse the data files进入公开预报目录。",
+          "选择起报日期、时次、IFS/AIFS模式及预报时效。",
+          "下载所需GRIB文件，用兼容工具读取并记录累计区间。"
+        ],
+        "limitations": "匿名目录可读；这是开放参数子集，历史保存和额外配送服务分别核对。",
+        "evidence_urls": [
+          "https://www.ecmwf.int/en/forecasts/datasets/open-data",
+          "https://data.ecmwf.int/forecasts/"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "download_directory"
+        ]
+      }
     },
     {
       "id": "noaa_gfs",
@@ -966,11 +1747,102 @@
       "frequency": "每日00/06/12/18 UTC起报；不同预报时效",
       "data_nature": "数值天气预报",
       "entry_url": "https://nomads.ncep.noaa.gov/",
-      "evidence_urls": [
-        "https://nomads.ncep.noaa.gov/",
-        "https://www.emc.ncep.noaa.gov/emc/pages/numerical_forecast_systems/gfs.php",
-        "https://registry.opendata.aws/noaa-gfs-bdp-pds/"
-      ]
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://nomads.ncep.noaa.gov/",
+        "steps": [
+          "在NOMADS选择GFS 0.25 Degree的HTTPS或grib filter。",
+          "选择起报日期、时次和预报时效，过滤变量/层次/区域。",
+          "下载所需GRIB；不要把滚动预报目录当多年历史库。"
+        ],
+        "limitations": "当前产品目录可匿名读取，未核验每个预报文件；频繁请求须遵守服务限制。",
+        "evidence_urls": [
+          "https://nomads.ncep.noaa.gov/",
+          "https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "download_directory"
+        ]
+      }
+    },
+    {
+      "id": "ncar_gdex_era5",
+      "category": "公开镜像与云端计算",
+      "name": "NSF NCAR / GDEX ERA5 分发",
+      "keywords": [
+        "ERA5",
+        "小时场",
+        "区域裁剪",
+        "时间边界核对"
+      ],
+      "coverage": "ERA5公开分发；具体变量、时间与网格以产品文件为准",
+      "frequency": "小时，按原产品",
+      "data_nature": "ERA5 的另一分发渠道，不是独立再分析",
+      "entry_url": "https://registry.opendata.aws/nsf-ncar-era5/",
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "no_account",
+        "access_tier_label": "无需账号的公开路线",
+        "start_url": "https://registry.opendata.aws/nsf-ncar-era5/",
+        "steps": [
+          "从AWS登记页进入公开ERA5存储。",
+          "按产品目录选择单层或其他集合，再选变量和月份。",
+          "使用文件下载或适合的子集工具；先小样本核对时间与变量语义。"
+        ],
+        "limitations": "公开S3无需AWS账号，匿名对象列表已通过；GDEX/OPeNDAP是另一获取方式，其历史九变量裁剪未通过，不把它写成批量已打通。",
+        "evidence_urls": [
+          "https://registry.opendata.aws/nsf-ncar-era5/",
+          "https://nsf-ncar-era5.s3.us-west-2.amazonaws.com/?list-type=2&max-keys=1"
+        ],
+        "verification_level": "listing_or_metadata",
+        "availability": "documented_route",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": true,
+        "sample_check_kinds": [
+          "object_listing"
+        ]
+      }
+    },
+    {
+      "id": "cner_station_lead",
+      "category": "中国与区域资料",
+      "name": "生态观测网络资源目录与台站资料线索",
+      "keywords": [
+        "生态站",
+        "林芝",
+        "日照气候背景",
+        "台站资料申请"
+      ],
+      "coverage": "生态站资源目录；具体时序覆盖需核对",
+      "frequency": "公开气候背景与待申请时序资料分开",
+      "data_nature": "资料目录及台站联系线索",
+      "entry_url": "https://www.cnern.org.cn/share_dict.jsp?data=1&type=2",
+      "public_access": {
+        "checked_date": "2026-10-24",
+        "access_tier": "application_required",
+        "access_tier_label": "需实名、申请或站方确认",
+        "start_url": "https://www.cnern.org.cn/share_dict.jsp?data=1&type=2",
+        "steps": [
+          "在公开资源目录定位生态站及数据资源。",
+          "核对站点、变量、年份及共享方式；目录里的气候背景不等于可下载序列。",
+          "开放条目按页面注册获取；具体长期序列需按站方要求申请确认。"
+        ],
+        "limitations": "目录可读，但目标逐日时序下载未确认；保留为资料线索，不作为“普通人已能直接下载”的成果。",
+        "evidence_urls": [
+          "https://www.cnern.org.cn/share_dict.jsp?data=1&type=2"
+        ],
+        "verification_level": "not_download_verified",
+        "availability": "application_required",
+        "authenticated_download_tested_this_batch": false,
+        "public_route_involves_no_institutional_account": false,
+        "sample_check_kinds": []
+      }
     }
   ]
 }

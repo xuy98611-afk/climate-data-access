@@ -1,10 +1,12 @@
 # climate-data-access
 
-A small Python interface for planning and retrieving regional ERA5 hourly data through Google Earth Engine. Requests use UTC hours and 0.25-degree grid centers; outputs contain compressed NetCDF batches and a provenance/checksum manifest.
+A directory of 44 climate-data products, distribution routes and tools, plus a Python client for regional ERA5 hourly retrieval through Google Earth Engine. Requests use UTC hours and 0.25-degree grid centers; outputs contain compressed NetCDF batches and a provenance/checksum manifest.
 
 This is an early public-source release candidate. The packaged client is tested with synthetic offline responses; it has not been live-retested. No meteorological data, credentials, or private research database are included. See [validation status](docs/status.md).
 
-[中文使用说明](README.md) · [Methods](docs/methods.md) · [42-source directory](catalog/sources.json)
+[中文使用说明](README.md) · [Methods](docs/methods.md) · [44-source directory](catalog/sources.json)
+
+See the [Chinese public-access guide](docs/public-access.md) for per-source steps, account requirements, bounded access checks, and restrictions. Directory listings are separate from executable adapters.
 
 ## Install and plan offline
 
@@ -60,7 +62,7 @@ See [methods and units](docs/methods.md) before interpreting precipitation or ra
 
 ## Scope and provenance
 
-The implemented route is [`ECMWF/ERA5/HOURLY`](https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_HOURLY) through the official Earth Engine SDK. The directory lists 42 public products, distribution channels, and tools. Each entry has a separate status; listing a service does not create a connector. CDS API and ARCO adapters are not implemented, and the package never switches channels automatically.
+The implemented route is [`ECMWF/ERA5/HOURLY`](https://developers.google.com/earth-engine/datasets/catalog/ECMWF_ERA5_HOURLY) through the official Earth Engine SDK. The directory lists 44 public products, distribution channels, and tools. Each entry has a separate status; listing a service does not create a connector. CDS API and ARCO adapters are not implemented, and the package never switches channels automatically.
 
 The predecessor regional method was used for 2003–2010: 96 months, 70,128 UTC hours, nine variables, and a 37 × 61 grid. Those raw files were subsequently deleted and are absent from this repository. This is historical methodological context, not a reproducibility claim for the new client. Cross-channel values are not guaranteed equal.
 
