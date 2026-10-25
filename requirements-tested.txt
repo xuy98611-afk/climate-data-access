@@ -1,0 +1,8 @@
+# Direct dependencies tested on Windows / Python 3.12; not a full transitive lock.
+numpy==2.5.4
+xarray==2026.9.0
+h5netcdf==1.8.1
+h5py==3.16.0
+earthengine-api==1.7.49
+duckdb==2.0.0
+pyarrow==26.0.0

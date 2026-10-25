@@ -1,0 +1,976 @@
+{
+  "schema_version": 1,
+  "scope": "公开产品、渠道及工具目录；列入目录不表示实现适配器或验证当前可用性。",
+  "source_count": 42,
+  "metadata_review_date": "2026-10-24",
+  "status_legend": {
+    "catalog_only": "仅登记公开产品，未声称已实现适配器或验证权限。",
+    "implemented_offline_tested": "仅实现 ECMWF/ERA5/HOURLY，新客户端只通过离线测试。",
+    "live_not_retested": "准备此公开版本时没有重跑云端下载。",
+    "historical_sample_only": "仅有历史 ARCO 小样本实验，非生产适配器。",
+    "adapter_not_implemented": "本项目未实现可执行适配器。",
+    "web_historical_only": "仅有历史 CDS ERA5 网页下载实验。",
+    "api_not_implemented": "尚未实现 CDS API 适配器。"
+  },
+  "status_by_id": {
+    "era5_hourly": [
+      "web_historical_only",
+      "api_not_implemented"
+    ],
+    "era5_daily": [
+      "catalog_only"
+    ],
+    "era5_land": [
+      "catalog_only"
+    ],
+    "open_meteo": [
+      "catalog_only"
+    ],
+    "meteostat": [
+      "catalog_only"
+    ],
+    "noaa_ghcnd": [
+      "catalog_only"
+    ],
+    "noaa_isd": [
+      "catalog_only"
+    ],
+    "noaa_gsod": [
+      "catalog_only"
+    ],
+    "dwd_cdc": [
+      "catalog_only"
+    ],
+    "metoffice_ceda": [
+      "catalog_only"
+    ],
+    "cma": [
+      "catalog_only"
+    ],
+    "tpdc": [
+      "catalog_only"
+    ],
+    "imd_india": [
+      "catalog_only"
+    ],
+    "earthdata": [
+      "catalog_only"
+    ],
+    "nasa_power": [
+      "catalog_only"
+    ],
+    "merra2": [
+      "catalog_only"
+    ],
+    "gldas": [
+      "catalog_only"
+    ],
+    "gpm_imerg": [
+      "catalog_only"
+    ],
+    "smap": [
+      "catalog_only"
+    ],
+    "modis_viirs": [
+      "catalog_only"
+    ],
+    "giovanni": [
+      "catalog_only"
+    ],
+    "ceres": [
+      "catalog_only"
+    ],
+    "chirps": [
+      "catalog_only"
+    ],
+    "gpcc": [
+      "catalog_only"
+    ],
+    "terraclimate": [
+      "catalog_only"
+    ],
+    "cru_ts": [
+      "catalog_only"
+    ],
+    "worldclim": [
+      "catalog_only"
+    ],
+    "chelsa": [
+      "catalog_only"
+    ],
+    "spei": [
+      "catalog_only"
+    ],
+    "cmip6_cds": [
+      "catalog_only"
+    ],
+    "nex_gddp": [
+      "catalog_only"
+    ],
+    "esgf": [
+      "catalog_only"
+    ],
+    "arco": [
+      "historical_sample_only",
+      "adapter_not_implemented"
+    ],
+    "planette": [
+      "catalog_only"
+    ],
+    "earth_engine": [
+      "implemented_offline_tested",
+      "live_not_retested"
+    ],
+    "noaa_psl": [
+      "catalog_only"
+    ],
+    "ibtracs": [
+      "catalog_only"
+    ],
+    "copernicus_marine": [
+      "catalog_only"
+    ],
+    "cams_ads": [
+      "catalog_only"
+    ],
+    "jra3q": [
+      "catalog_only"
+    ],
+    "ecmwf_forecast": [
+      "catalog_only"
+    ],
+    "noaa_gfs": [
+      "catalog_only"
+    ]
+  },
+  "sources": [
+    {
+      "id": "era5_hourly",
+      "category": "再分析与综合气象",
+      "name": "ERA5 逐小时",
+      "keywords": [
+        "气温",
+        "露点",
+        "气压",
+        "风",
+        "降水",
+        "辐射"
+      ],
+      "coverage": "全球；产品覆盖从1940年起",
+      "frequency": "小时",
+      "data_nature": "再分析",
+      "entry_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/how-to-api"
+      ]
+    },
+    {
+      "id": "era5_daily",
+      "category": "再分析与综合气象",
+      "name": "ERA5 逐日统计",
+      "keywords": [
+        "最高气温",
+        "最低气温",
+        "日平均",
+        "露点",
+        "气压"
+      ],
+      "coverage": "全球；从1940年起，具体变量可用范围按目录",
+      "frequency": "日；由小时采样聚合",
+      "data_nature": "再分析派生统计",
+      "entry_url": "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=download",
+        "https://cds.climate.copernicus.eu/how-to-api",
+        "https://cds.climate.copernicus.eu/datasets/derived-era5-single-levels-daily-statistics?tab=overview"
+      ]
+    },
+    {
+      "id": "era5_land",
+      "category": "再分析与综合气象",
+      "name": "ERA5-Land",
+      "keywords": [
+        "气温",
+        "土壤温度",
+        "土壤水分",
+        "蒸发",
+        "径流"
+      ],
+      "coverage": "全球陆地；0.1°产品",
+      "frequency": "小时/月，按产品",
+      "data_nature": "陆面模型与再分析驱动",
+      "entry_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+        "https://cds.climate.copernicus.eu/how-to-api",
+        "https://open-meteo.com/en/docs/historical-weather-api"
+      ]
+    },
+    {
+      "id": "open_meteo",
+      "category": "再分析与综合气象",
+      "name": "Open-Meteo",
+      "keywords": [
+        "气温",
+        "降水",
+        "湿度",
+        "风",
+        "日照",
+        "湿球温度"
+      ],
+      "coverage": "全球代表点/格点；覆盖随模型",
+      "frequency": "小时/日",
+      "data_nature": "气象模型与再分析接口",
+      "entry_url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "evidence_urls": [
+        "https://open-meteo.com/en/docs/historical-weather-api"
+      ]
+    },
+    {
+      "id": "meteostat",
+      "category": "站点观测",
+      "name": "Meteostat",
+      "keywords": [
+        "站点气温",
+        "站点降水",
+        "气压",
+        "风",
+        "历史天气"
+      ],
+      "coverage": "全球站点，逐站核对覆盖",
+      "frequency": "小时/日/月",
+      "data_nature": "站点汇集；具体接口可能含模型补充",
+      "entry_url": "https://dev.meteostat.net/",
+      "evidence_urls": [
+        "https://dev.meteostat.net/",
+        "https://dev.meteostat.net/data/bulk.html"
+      ]
+    },
+    {
+      "id": "noaa_ghcnd",
+      "category": "站点观测",
+      "name": "NOAA GHCN-Daily",
+      "keywords": [
+        "站点最高气温",
+        "站点最低气温",
+        "站点降水",
+        "雪"
+      ],
+      "coverage": "全球陆地站点；覆盖逐站不同",
+      "frequency": "日",
+      "data_nature": "站点观测",
+      "entry_url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
+      "evidence_urls": [
+        "https://www.ncei.noaa.gov/pub/data/ghcn/daily/",
+        "https://www.ncei.noaa.gov/cdo-web/webservices/v2"
+      ]
+    },
+    {
+      "id": "noaa_isd",
+      "category": "站点观测",
+      "name": "NOAA ISD / Global Hourly",
+      "keywords": [
+        "能见度",
+        "小时气温",
+        "露点",
+        "气压",
+        "风",
+        "云"
+      ],
+      "coverage": "全球站点；按站年核对",
+      "frequency": "小时/次日内",
+      "data_nature": "站点观测",
+      "entry_url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+      "evidence_urls": [
+        "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+        "https://www.ncei.noaa.gov/data/global-hourly/access/"
+      ]
+    },
+    {
+      "id": "noaa_gsod",
+      "category": "站点观测",
+      "name": "NOAA GSOD",
+      "keywords": [
+        "日均能见度",
+        "日均气温",
+        "降水",
+        "风"
+      ],
+      "coverage": "全球站点；按站年核对",
+      "frequency": "日",
+      "data_nature": "站点观测的日统计",
+      "entry_url": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
+      "evidence_urls": [
+        "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/",
+        "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00516/html"
+      ]
+    },
+    {
+      "id": "dwd_cdc",
+      "category": "站点观测",
+      "name": "德国 DWD Climate Data Center",
+      "keywords": [
+        "站点气温",
+        "降水",
+        "日照",
+        "风",
+        "欧洲格点"
+      ],
+      "coverage": "德国为主，另有全球/欧洲目录",
+      "frequency": "小时/日/月等",
+      "data_nature": "观测与格点派生产品",
+      "entry_url": "https://opendata.dwd.de/climate_environment/CDC/",
+      "evidence_urls": [
+        "https://opendata.dwd.de/climate_environment/CDC/"
+      ]
+    },
+    {
+      "id": "metoffice_ceda",
+      "category": "站点观测",
+      "name": "英国 Met Office / CEDA",
+      "keywords": [
+        "英国站点",
+        "HadUK-Grid",
+        "MIDAS Open",
+        "气候统计"
+      ],
+      "coverage": "英国为主；全球产品另选",
+      "frequency": "日/月/年等",
+      "data_nature": "观测、观测插值与产品目录",
+      "entry_url": "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
+      "evidence_urls": [
+        "https://www.metoffice.gov.uk/research/climate/maps-and-data/data",
+        "https://archive.ceda.ac.uk/",
+        "https://help.ceda.ac.uk/article/39-ceda-account",
+        "https://help.ceda.ac.uk/article/137-ceda-data-catalogue"
+      ]
+    },
+    {
+      "id": "cma",
+      "category": "中国与区域资料",
+      "name": "中国气象数据网 CMA",
+      "keywords": [
+        "中国站点",
+        "地面气候日值",
+        "日照",
+        "能见度"
+      ],
+      "coverage": "中国；数据集及站点范围待核",
+      "frequency": "小时/日/月等",
+      "data_nature": "观测与气象业务资料",
+      "entry_url": "https://data.cma.cn/",
+      "evidence_urls": [
+        "https://data.cma.cn/",
+        "https://www.cma.gov.cn/wmhd/gzly/cjwt/202204/t20220415_4759049.html"
+      ]
+    },
+    {
+      "id": "tpdc",
+      "category": "中国与区域资料",
+      "name": "国家青藏高原科学数据中心 TPDC",
+      "keywords": [
+        "高原气象",
+        "CMFD",
+        "陆面",
+        "水文",
+        "生态",
+        "实测站"
+      ],
+      "coverage": "青藏高原、中国及相关区域；按产品",
+      "frequency": "小时/日/月等",
+      "data_nature": "实测、融合、模型产品混合目录",
+      "entry_url": "https://data.tpdc.ac.cn/",
+      "evidence_urls": [
+        "https://data.tpdc.ac.cn/"
+      ]
+    },
+    {
+      "id": "imd_india",
+      "category": "中国与区域资料",
+      "name": "印度 IMD 格点降水",
+      "keywords": [
+        "印度日降水",
+        "季风"
+      ],
+      "coverage": "印度；目录列0.25°日格点",
+      "frequency": "日，按年文件",
+      "data_nature": "观测插值",
+      "entry_url": "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html",
+      "evidence_urls": [
+        "https://www.imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html"
+      ]
+    },
+    {
+      "id": "earthdata",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA Earthdata Search",
+      "keywords": [
+        "NASA",
+        "卫星",
+        "MERRA-2",
+        "GLDAS",
+        "GPM",
+        "MODIS"
+      ],
+      "coverage": "全球，按collection/granule",
+      "frequency": "按产品",
+      "data_nature": "数据总目录",
+      "entry_url": "https://search.earthdata.nasa.gov/",
+      "evidence_urls": [
+        "https://search.earthdata.nasa.gov/",
+        "https://urs.earthdata.nasa.gov/users/new",
+        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
+      ]
+    },
+    {
+      "id": "nasa_power",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA POWER",
+      "keywords": [
+        "太阳辐射",
+        "气温",
+        "湿度",
+        "风",
+        "降水",
+        "农业气象"
+      ],
+      "coverage": "全球点/区域；气象与辐射网格不同",
+      "frequency": "小时/日/月/气候平均",
+      "data_nature": "卫星与模型派生",
+      "entry_url": "https://power.larc.nasa.gov/",
+      "evidence_urls": [
+        "https://power.larc.nasa.gov/",
+        "https://power.larc.nasa.gov/docs/tutorials/service-data-request/api/"
+      ]
+    },
+    {
+      "id": "merra2",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA MERRA-2",
+      "keywords": [
+        "气温",
+        "风",
+        "辐射",
+        "气溶胶",
+        "气压",
+        "湿度"
+      ],
+      "coverage": "全球；从1980年起",
+      "frequency": "小时/月等",
+      "data_nature": "再分析",
+      "entry_url": "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/",
+      "evidence_urls": [
+        "https://gmao.gsfc.nasa.gov/gmao-products/merra-2/",
+        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
+      ]
+    },
+    {
+      "id": "gldas",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA GLDAS / NLDAS / FLDAS",
+      "keywords": [
+        "土壤湿度",
+        "蒸散",
+        "径流",
+        "雪",
+        "陆面通量"
+      ],
+      "coverage": "GLDAS全球陆地；其他系统范围不同",
+      "frequency": "3小时/月等，按产品",
+      "data_nature": "陆面模型及同化",
+      "entry_url": "https://ldas.gsfc.nasa.gov/gldas",
+      "evidence_urls": [
+        "https://ldas.gsfc.nasa.gov/gldas",
+        "https://urs.earthdata.nasa.gov/documentation/for_users/data_access/curl_and_wget"
+      ]
+    },
+    {
+      "id": "gpm_imerg",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA GPM IMERG / TRMM",
+      "keywords": [
+        "卫星降水",
+        "极端降水",
+        "降水强度"
+      ],
+      "coverage": "近全球，覆盖取决于产品",
+      "frequency": "半小时/日/月",
+      "data_nature": "卫星融合与站点校正",
+      "entry_url": "https://gpm.nasa.gov/data/imerg",
+      "evidence_urls": [
+        "https://gpm.nasa.gov/data/imerg",
+        "https://urs.earthdata.nasa.gov/users/new"
+      ]
+    },
+    {
+      "id": "smap",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA SMAP / NSIDC",
+      "keywords": [
+        "土壤水分",
+        "冻融",
+        "根区水分"
+      ],
+      "coverage": "全球；按等级/轨道覆盖",
+      "frequency": "轨道/日/3小时等",
+      "data_nature": "遥感反演与同化",
+      "entry_url": "https://smap.jpl.nasa.gov/data/",
+      "evidence_urls": [
+        "https://smap.jpl.nasa.gov/data/",
+        "https://urs.earthdata.nasa.gov/users/new"
+      ]
+    },
+    {
+      "id": "modis_viirs",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA MODIS / VIIRS（AppEEARS路线）",
+      "keywords": [
+        "地表温度",
+        "NDVI",
+        "EVI",
+        "蒸散",
+        "积雪",
+        "植被"
+      ],
+      "coverage": "全球；按卫星和具体产品",
+      "frequency": "日/多日合成/月等",
+      "data_nature": "遥感反演",
+      "entry_url": "https://appeears.earthdatacloud.nasa.gov/",
+      "evidence_urls": [
+        "https://appeears.earthdatacloud.nasa.gov/",
+        "https://urs.earthdata.nasa.gov/users/new",
+        "https://ecostress.jpl.nasa.gov/downloads/tutorials/06-Downloading_from_AppEEARS.pdf"
+      ]
+    },
+    {
+      "id": "giovanni",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA Giovanni",
+      "keywords": [
+        "区域平均",
+        "时间序列",
+        "降水",
+        "气溶胶",
+        "陆面"
+      ],
+      "coverage": "随所选数据集",
+      "frequency": "按产品",
+      "data_nature": "在线分析工具",
+      "entry_url": "https://giovanni.gsfc.nasa.gov/giovanni/",
+      "evidence_urls": [
+        "https://giovanni.gsfc.nasa.gov/giovanni/",
+        "https://gpm.nasa.gov/data/imerg"
+      ]
+    },
+    {
+      "id": "ceres",
+      "category": "NASA 与卫星陆面",
+      "name": "NASA CERES",
+      "keywords": [
+        "短波辐射",
+        "长波辐射",
+        "地球辐射收支",
+        "云"
+      ],
+      "coverage": "全球格点，按产品",
+      "frequency": "小时/日/月等",
+      "data_nature": "卫星与辐射产品",
+      "entry_url": "https://ceres.larc.nasa.gov/data/",
+      "evidence_urls": [
+        "https://ceres.larc.nasa.gov/data/",
+        "https://urs.earthdata.nasa.gov/users/new"
+      ]
+    },
+    {
+      "id": "chirps",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "CHIRPS v3 / CHIRPS v2",
+      "keywords": [
+        "降水",
+        "旱涝",
+        "降水极端"
+      ],
+      "coverage": "v3陆地60°S—60°N；从1981年起",
+      "frequency": "日/候/旬/月/年",
+      "data_nature": "卫星与站点融合及时间分解",
+      "entry_url": "https://www.chc.ucsb.edu/data/chirps3",
+      "evidence_urls": [
+        "https://www.chc.ucsb.edu/data/chirps3",
+        "https://www.chc.ucsb.edu/data/chirps",
+        "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/"
+      ]
+    },
+    {
+      "id": "gpcc",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "DWD GPCC",
+      "keywords": [
+        "全球陆地降水",
+        "站点降水插值"
+      ],
+      "coverage": "全球陆地；按产品覆盖",
+      "frequency": "月/日等",
+      "data_nature": "雨量站格点插值",
+      "entry_url": "https://opendata.dwd.de/climate_environment/GPCC/",
+      "evidence_urls": [
+        "https://www.dwd.de/EN/ourservices/gpcc/gpcc.html",
+        "https://opendata.dwd.de/climate_environment/CDC/",
+        "https://opendata.dwd.de/climate_environment/GPCC/"
+      ]
+    },
+    {
+      "id": "terraclimate",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "TerraClimate",
+      "keywords": [
+        "温度",
+        "降水",
+        "蒸散",
+        "水分亏缺",
+        "VPD",
+        "PDSI"
+      ],
+      "coverage": "全球陆地；约4km",
+      "frequency": "月",
+      "data_nature": "气候插值、再分析驱动与水量平衡模型",
+      "entry_url": "https://www.climatologylab.org/terraclimate.html",
+      "evidence_urls": [
+        "https://www.climatologylab.org/terraclimate.html"
+      ]
+    },
+    {
+      "id": "cru_ts",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "CRU TS / CRU CY",
+      "keywords": [
+        "温度",
+        "降水",
+        "PET",
+        "水汽压",
+        "国家气候序列"
+      ],
+      "coverage": "全球陆地（不含南极）；从1901年起",
+      "frequency": "月；CY含季/年",
+      "data_nature": "观测插值与聚合",
+      "entry_url": "https://crudata.uea.ac.uk/cru/data/hrg/",
+      "evidence_urls": [
+        "https://crudata.uea.ac.uk/cru/data/hrg/",
+        "https://help.ceda.ac.uk/article/39-ceda-account"
+      ]
+    },
+    {
+      "id": "worldclim",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "WorldClim",
+      "keywords": [
+        "气候平均",
+        "BIO生物气候",
+        "温度",
+        "降水"
+      ],
+      "coverage": "全球；按历史/未来产品",
+      "frequency": "多年气候平均/月等",
+      "data_nature": "观测插值、降尺度与情景产品",
+      "entry_url": "https://www.worldclim.org/data/index.html",
+      "evidence_urls": [
+        "https://www.worldclim.org/data/index.html"
+      ]
+    },
+    {
+      "id": "chelsa",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "CHELSA",
+      "keywords": [
+        "高分辨率温度",
+        "降水",
+        "BIO",
+        "SPI",
+        "SPEI"
+      ],
+      "coverage": "全球及专题区域；公里级产品",
+      "frequency": "日/月/气候平均等",
+      "data_nature": "降尺度产品",
+      "entry_url": "https://www.chelsa-climate.org/",
+      "evidence_urls": [
+        "https://www.chelsa-climate.org/"
+      ]
+    },
+    {
+      "id": "spei",
+      "category": "降水、干旱与高分辨率格点",
+      "name": "SPEIbase / Global Drought Monitor",
+      "keywords": [
+        "SPEI",
+        "干旱",
+        "标准化水分亏缺"
+      ],
+      "coverage": "全球格点；依版本",
+      "frequency": "月/多累积尺度",
+      "data_nature": "指数产品",
+      "entry_url": "https://spei.csic.es/database.html",
+      "evidence_urls": [
+        "https://spei.csic.es/database.html",
+        "https://spei.csic.es/"
+      ]
+    },
+    {
+      "id": "cmip6_cds",
+      "category": "未来气候情景",
+      "name": "Copernicus CMIP6",
+      "keywords": [
+        "未来温度",
+        "降水",
+        "气候情景",
+        "SSP"
+      ],
+      "coverage": "全球，多模式",
+      "frequency": "日/月，按变量",
+      "data_nature": "气候模式模拟",
+      "entry_url": "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=overview",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/projections-cmip6?tab=overview",
+        "https://cds.climate.copernicus.eu/how-to-api"
+      ]
+    },
+    {
+      "id": "nex_gddp",
+      "category": "未来气候情景",
+      "name": "NASA NEX-GDDP-CMIP6",
+      "keywords": [
+        "降尺度未来气温",
+        "降水",
+        "湿度",
+        "风",
+        "辐射"
+      ],
+      "coverage": "全球陆地相关网格；0.25°产品",
+      "frequency": "日",
+      "data_nature": "偏差校正及降尺度情景",
+      "entry_url": "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
+      "evidence_urls": [
+        "https://www.nccs.nasa.gov/data-collections/nex-gddp-cmip6/",
+        "https://registry.opendata.aws/nex-gddp-cmip6/"
+      ]
+    },
+    {
+      "id": "esgf",
+      "category": "未来气候情景",
+      "name": "ESGF / Metagrid",
+      "keywords": [
+        "CMIP6",
+        "CORDEX",
+        "全球模式",
+        "区域模式"
+      ],
+      "coverage": "全球和区域，多模式",
+      "frequency": "按产品",
+      "data_nature": "多机构气候数据目录",
+      "entry_url": "https://esgf.github.io/",
+      "evidence_urls": [
+        "https://esgf.github.io/",
+        "https://aims2.llnl.gov/"
+      ]
+    },
+    {
+      "id": "arco",
+      "category": "公开镜像与云端计算",
+      "name": "Google Research ARCO ERA5",
+      "keywords": [
+        "ERA5小时气象",
+        "气压层"
+      ],
+      "coverage": "全球；按valid_time属性",
+      "frequency": "小时",
+      "data_nature": "ERA5云端副本",
+      "entry_url": "https://github.com/google-research/arco-era5",
+      "evidence_urls": [
+        "https://github.com/google-research/arco-era5"
+      ]
+    },
+    {
+      "id": "planette",
+      "category": "公开镜像与云端计算",
+      "name": "Planette ERA5 Archive",
+      "keywords": [
+        "ERA5日/月聚合",
+        "气温",
+        "降水率"
+      ],
+      "coverage": "全球；0.25°产品",
+      "frequency": "日/月/季等",
+      "data_nature": "ERA5聚合镜像",
+      "entry_url": "https://registry.opendata.aws/planette_era5_reanalysis/",
+      "evidence_urls": [
+        "https://registry.opendata.aws/planette_era5_reanalysis/",
+        "https://github.com/PlanetteAI/planette_era5_archive"
+      ]
+    },
+    {
+      "id": "earth_engine",
+      "category": "公开镜像与云端计算",
+      "name": "Google Earth Engine",
+      "keywords": [
+        "ERA5",
+        "CHIRPS",
+        "MODIS",
+        "TerraClimate",
+        "批量区域统计"
+      ],
+      "coverage": "随数据集",
+      "frequency": "按产品",
+      "data_nature": "云计算与数据目录",
+      "entry_url": "https://developers.google.com/earth-engine/datasets",
+      "evidence_urls": [
+        "https://developers.google.com/earth-engine/datasets",
+        "https://developers.google.com/earth-engine/guides/access"
+      ]
+    },
+    {
+      "id": "noaa_psl",
+      "category": "海洋、气候指数与灾害",
+      "name": "NOAA PSL",
+      "keywords": [
+        "ENSO",
+        "Niño3.4",
+        "PDO",
+        "NAO",
+        "季风",
+        "气候指数"
+      ],
+      "coverage": "全球/区域指数",
+      "frequency": "多为月，也有其他频率",
+      "data_nature": "观测/再分析派生指数",
+      "entry_url": "https://psl.noaa.gov/data/climateindices/list/",
+      "evidence_urls": [
+        "https://psl.noaa.gov/data/climateindices/list/"
+      ]
+    },
+    {
+      "id": "ibtracs",
+      "category": "海洋、气候指数与灾害",
+      "name": "NOAA IBTrACS",
+      "keywords": [
+        "台风",
+        "热带气旋",
+        "路径",
+        "风速",
+        "中心气压"
+      ],
+      "coverage": "全球海盆",
+      "frequency": "轨迹时刻",
+      "data_nature": "多机构最佳路径合并",
+      "entry_url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+      "evidence_urls": [
+        "https://www.ncei.noaa.gov/products/international-best-track-archive"
+      ]
+    },
+    {
+      "id": "copernicus_marine",
+      "category": "海洋、气候指数与灾害",
+      "name": "Copernicus Marine",
+      "keywords": [
+        "海温",
+        "海洋热浪",
+        "盐度",
+        "流速",
+        "海平面",
+        "海冰"
+      ],
+      "coverage": "全球及区域海洋",
+      "frequency": "小时/日/月，按产品",
+      "data_nature": "观测与海洋模型/再分析目录",
+      "entry_url": "https://data.marine.copernicus.eu/",
+      "evidence_urls": [
+        "https://data.marine.copernicus.eu/",
+        "https://help.marine.copernicus.eu/en/articles/4220332-how-to-register-for-copernicus-marine-service",
+        "https://help.marine.copernicus.eu/en/articles/16733110-how-to-access-and-download-copernicus-marine-data"
+      ]
+    },
+    {
+      "id": "cams_ads",
+      "category": "海洋、气候指数与灾害",
+      "name": "Copernicus CAMS / ADS",
+      "keywords": [
+        "气溶胶",
+        "空气质量",
+        "臭氧",
+        "温室气体",
+        "火排放"
+      ],
+      "coverage": "全球/区域，按产品",
+      "frequency": "小时/月等",
+      "data_nature": "大气成分观测与模型/再分析",
+      "entry_url": "https://ads.atmosphere.copernicus.eu/",
+      "evidence_urls": [
+        "https://ads.atmosphere.copernicus.eu/"
+      ]
+    },
+    {
+      "id": "jra3q",
+      "category": "再分析与综合气象",
+      "name": "日本 JRA-3Q / JRA-55",
+      "keywords": [
+        "再分析气温",
+        "风",
+        "湿度",
+        "辐射"
+      ],
+      "coverage": "全球；按版本",
+      "frequency": "小时级/月等，按产品",
+      "data_nature": "再分析",
+      "entry_url": "https://jra.kishou.go.jp/JRA-3Q/index_en.html",
+      "evidence_urls": [
+        "https://jra.kishou.go.jp/JRA-3Q/index_en.html"
+      ]
+    },
+    {
+      "id": "ecmwf_forecast",
+      "category": "数值天气预报",
+      "name": "ECMWF Open Data：IFS / AIFS",
+      "keywords": [
+        "ECMWF",
+        "IFS",
+        "AIFS",
+        "天气预报",
+        "气温",
+        "降水",
+        "风",
+        "气压"
+      ],
+      "coverage": "全球；开放子集与网格按产品目录",
+      "frequency": "多个UTC起报时次与预报时效；输出间隔按产品",
+      "data_nature": "数值天气预报及AI天气预报",
+      "entry_url": "https://www.ecmwf.int/en/forecasts/datasets/open-data",
+      "evidence_urls": [
+        "https://www.ecmwf.int/en/forecasts/datasets/open-data",
+        "https://data.ecmwf.int/forecasts/"
+      ]
+    },
+    {
+      "id": "noaa_gfs",
+      "category": "数值天气预报",
+      "name": "NOAA / NCEP GFS",
+      "keywords": [
+        "GFS",
+        "NOAA",
+        "NCEP",
+        "天气预报",
+        "气温",
+        "降水",
+        "风",
+        "湿度",
+        "气压"
+      ],
+      "coverage": "全球；网格按发布产品",
+      "frequency": "每日00/06/12/18 UTC起报；不同预报时效",
+      "data_nature": "数值天气预报",
+      "entry_url": "https://nomads.ncep.noaa.gov/",
+      "evidence_urls": [
+        "https://nomads.ncep.noaa.gov/",
+        "https://www.emc.ncep.noaa.gov/emc/pages/numerical_forecast_systems/gfs.php",
+        "https://registry.opendata.aws/noaa-gfs-bdp-pds/"
+      ]
+    }
+  ]
+}

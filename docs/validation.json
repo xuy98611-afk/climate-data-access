@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-24",
+  "version": "0.1.0",
+  "python": "3.12.14",
+  "operating_system": "Windows",
+  "offline_tests_passed": 18,
+  "isolated_environment": true,
+  "wheel_build_and_install_passed": true,
+  "cli_plan_verify_bundle_passed": true,
+  "synthetic_point_parquet_duckdb_example_passed": true,
+  "dependencies": {
+    "numpy": "2.5.4",
+    "xarray": "2026.9.0",
+    "h5netcdf": "1.8.1",
+    "h5py": "3.16.0",
+    "earthengine-api": "1.7.49",
+    "duckdb": "2.0.0",
+    "pyarrow": "26.0.0"
+  },
+  "gee_live_retested": false,
+  "github_actions_executed": false,
+  "meteorological_data_included": false,
+  "private_database_modified": false,
+  "repository_published": false,
+  "scope": "仅验证合成响应下的传输和本地完整性，不证明当前云端权限或气象准确性",
+  "snapshot_stage": "源码准备阶段快照；发布与 CI 最新状态以 GitHub 仓库为准"
+}
